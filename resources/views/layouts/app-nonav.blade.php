@@ -27,9 +27,6 @@
         </main>
     </div>
 
-    <script>
-        $('#password').password();
-    </script>
 </body>
 
 </html>
