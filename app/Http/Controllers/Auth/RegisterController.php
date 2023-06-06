@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use App\Models\Admin;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -28,7 +29,8 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware('guest')->except('logout');
+        $this->middleware('guest:admin')->except('logout');
     }
 
     public function index()
@@ -49,5 +51,24 @@ class RegisterController extends Controller
         User::create($credentials);
 
         return redirect()->route('login')->with('success', 'User created successfully');
+    }
+
+    public function adminIndex()
+    {
+        return view('auth.admin-register');
+    }
+
+    public function adminStore()
+    {
+        $credentials = $this->validate(request(), [
+            'email' => 'email|required|string',
+            'password' => 'required|string|confirmed'
+        ]);
+
+        $credentials['password'] = Hash::make($credentials['password']);
+
+        Admin::create($credentials);
+
+        return redirect()->route('admin.login')->with('success', 'User created successfully');
     }
 }

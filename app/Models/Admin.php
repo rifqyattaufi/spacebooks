@@ -3,11 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 
-class Admin extends Model
+class Admin extends Authenticatable
 {
     use HasFactory;
+
+    protected $guard = 'admin';
 
     /**
      * The attributes that are mass assignable.
@@ -15,10 +18,8 @@ class Admin extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
         'email',
         'password',
-        'profile_picture'
     ];
 
     /**

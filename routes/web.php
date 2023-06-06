@@ -21,6 +21,20 @@ Route::get('/register', [RegisterController::class, 'index'])->name('register');
 Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
+Route::prefix('admin')->group(function () {
+    Route::get('/login', [LoginController::class, 'adminIndex'])->name('admin.login');
+    Route::post('/login', [LoginController::class, 'adminAuthenticate'])->name('admin.login.authenticate');
+    Route::get('/register', [RegisterController::class, 'adminIndex'])->name('admin.register');
+    Route::post('/register', [RegisterController::class, 'adminStore'])->name('admin.register.store');
+});
+
+Route::prefix('admin')->middleware('auth:admin')->group(function () {
+    Route::get('/logout', [LoginController::class, 'logout'])->name('admin.logout');
+    Route::get('/', function () {
+        return view('admin.index');
+    })->name('admin.index');
+});
+
 Route::get('/', function () {
     return view('welcome');
 });

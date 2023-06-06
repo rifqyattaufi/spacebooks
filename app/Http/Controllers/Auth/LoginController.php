@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Auth;
 
 class LoginController extends Controller
 {
@@ -28,6 +30,7 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+        $this->middleware('guest:admin')->except('logout');
     }
 
     public function index()
@@ -49,10 +52,31 @@ class LoginController extends Controller
         return back()->withErrors(['error' => 'Email or password incorrect']);
     }
 
+    public function adminIndex()
+    {
+        return view('auth.admin-login');
+    }
+
+    public function adminAuthenticate()
+    {
+        $credentials = $this->validate(request(), [
+            'email' => 'email|required|string',
+            'password' => 'required|string'
+        ]);
+
+        if (Auth::guard('admin')->attempt($credentials)) {
+            return redirect()->route('admin.index');
+        }
+
+        return back()->withErrors(['error' => 'Email or password incorrect']);
+    }
+
     public function logout()
     {
         auth()->logout();
 
         return redirect()->route('login');
     }
+
+
 }
