@@ -10,11 +10,13 @@ class Space extends Model
     use HasFactory;
 
     protected $fillable = [
-        'nama',
+        'name',
         'address',
         'capacity',
         'description',
+        'open_day',
         'open_time',
+        'close_day',
         'close_time',
         'coworking_price',
         'meeting_price',

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\DataTableAjaxCRUDController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +35,10 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('admin.index');
 
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/spaces/add', [AdminController::class, 'addSpace'])->name('admin.spaces.add');
+    Route::post('/spaces/add', [AdminController::class, 'storeSpace'])->name('admin.spaces.store');
+    Route::post('/spaces/price', [AdminController::class, 'getPrice'])->name('admin.spaces.price');
+    Route::post('/spaces/price/update', [AdminController::class, 'updatePrice'])->name('admin.spaces.price.update');
 });
 
 Route::get('/', function () {
@@ -43,3 +48,7 @@ Route::get('/', function () {
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
+Route::get('ajax-crud-datatable', [DataTableAjaxCRUDController::class, 'index']);
+Route::post('store-company', [DataTableAjaxCRUDController::class, 'store']);
+Route::post('edit-company', [DataTableAjaxCRUDController::class, 'edit']);
+Route::post('delete-company', [DataTableAjaxCRUDController::class, 'destroy']);

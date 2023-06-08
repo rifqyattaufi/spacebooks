@@ -16,9 +16,11 @@ return new class extends Migration
             $table->string('name');
             $table->string('address');
             $table->integer('capacity');
-            $table->string('description');
-            $table->dateTime('open_time');
-            $table->dateTime('close_time');
+            $table->text('description');
+            $table->string('open_day');
+            $table->time('open_time');
+            $table->string('close_day');
+            $table->time('close_time');
             $table->integer('coworking_price')->nullable();
             $table->integer('meeting_price')->nullable();
             $table->foreignId('admin_id')->references('id')->on('admins')->onDelete('cascade');

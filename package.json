@@ -14,6 +14,7 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
-        "bootstrap-show-password": "^1.2.1"
+        "bootstrap-show-password": "^1.2.1",
+        "mdb-ui-kit": "^6.3.1"
     }
 }
