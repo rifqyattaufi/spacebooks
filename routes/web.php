@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,9 +31,9 @@ Route::prefix('admin')->group(function () {
 
 Route::prefix('admin')->middleware('auth:admin')->group(function () {
     Route::get('/logout', [LoginController::class, 'logout'])->name('admin.logout');
-    Route::get('/', function () {
-        return view('admin.index');
-    })->name('admin.index');
+    Route::get('/', [AdminController::class, 'index'])->name('admin.index');
+
+    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 });
 
 Route::get('/', function () {
