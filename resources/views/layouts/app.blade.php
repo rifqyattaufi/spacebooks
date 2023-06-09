@@ -83,8 +83,60 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main>
             @yield('content')
+
+                        
+            <section class="p-5">
+                <div class="container">
+
+                </div>
+            </section>
+
+            <footer class="bg-primary text-white py-5">
+            <div class="container">
+                <div class="row">
+                <div class="col-lg-4">
+                    <img src="{{ asset('assets/images/LOGO SPACEBOOK WHITE.png') }}" alt="Logo" class="mb-3" width="100">
+                    <p class="mb-4">Kerja jadi lebih mudah dan nyaman, booking ga perlu ribet lagi.</p>
+                    <div class="social-icons">
+                    <span class="follow-text">Follow Us:</span>
+                    <a href="#" class="text-decoration-none"><img src="{{ asset('assets/images/Instagram.png') }}" alt="Instagram"></a>
+                    <a href="#" class="text-decoration-none"><img src="{{ asset('assets/images/Facebook.png') }}" alt="Facebook"></a>
+                    <a href="#" class="text-decoration-none"><img src="{{ asset('assets/images/Linkedin.png') }}" alt="LinkedIn"></a>
+                    <a href="#" class="text-decoration-none"><img src="{{ asset('assets/images/Whatsapp.png') }}" alt="WhatsApp"></a>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <h5 class="mb-3">Tentang</h5>
+                    <ul class="list-unstyled">
+                    <li><a href="#" class="text-white text-decoration-none">Perusahaan</a></li>
+                    <li><a href="#" class="text-white text-decoration-none">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <h5 class="mb-3">Produk</h5>
+                    <ul class="list-unstyled">
+                    <li><a href="#" class="text-white text-decoration-none">Ringkasan</a></li>
+                    <li><a href="#" class="text-white text-decoration-none">Fitur</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h5 class="mb-3">Bantuan</h5>
+                    <ul class="list-unstyled">
+                    <li><a href="#" class="text-white text-decoration-none">Syarat dan Ketentuan</a></li>
+                    <li><a href="#" class="text-white text-decoration-none">Kebijakan Pribadi</a></li>
+                    <li><a href="#" class="text-white text-decoration-none">Kontak</a></li>
+                    </ul>
+                </div>
+                </div>
+                <div class="row">
+                <div class="col-lg-12 text-center">
+                    <p class="mt-4">Copyright&copy; 2023 SpaceBook. All rights reserved.</p>
+                </div>
+                </div>
+            </div>
+            </footer>
         </main>
     </div>
 </body>

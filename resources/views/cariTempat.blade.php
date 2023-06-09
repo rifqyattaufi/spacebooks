@@ -244,10 +244,5 @@
     </div>
 </section>
 
-<section class="p-5">
-    <div class="container">
-
-    </div>
-</section>
 
 @endsection
