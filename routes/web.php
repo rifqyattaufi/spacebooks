@@ -45,5 +45,14 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/caritempat', function () {
+    return view('cariTempat');
+});
+Route::get('/detailtempat', function () {
+    return view('detailTempat');
+});
+Route::get('/tambahtempat', function () {
+    return view('tambahTempat');
+});
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
