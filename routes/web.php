@@ -39,6 +39,7 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
     Route::post('/spaces/add', [AdminController::class, 'storeSpace'])->name('admin.spaces.store');
     Route::post('/spaces/price', [AdminController::class, 'getPrice'])->name('admin.spaces.price');
     Route::post('/spaces/price/update', [AdminController::class, 'updatePrice'])->name('admin.spaces.price.update');
+    Route::post('/spaces/facility/update', [AdminController::class, 'updateFacility'])->name('admin.spaces.facility.update');
 });
 
 Route::get('/', function () {
@@ -55,9 +56,3 @@ Route::get('/tambahtempat', function () {
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-
-Route::get('ajax-crud-datatable', [DataTableAjaxCRUDController::class, 'index']);
-Route::post('store-company', [DataTableAjaxCRUDController::class, 'store']);
-Route::post('edit-company', [DataTableAjaxCRUDController::class, 'edit']);
-Route::post('delete-company', [DataTableAjaxCRUDController::class, 'destroy']);
