@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Facility;
 use Illuminate\Http\Request;
 use App\Models\Space;
 
@@ -10,8 +11,9 @@ class AdminController extends Controller
     public function index()
     {
         $data = Space::where('admin_id', auth()->user()->id)->first();
+        $facility = Facility::where('space_id', $data->id)->get();
 
-        return view('admin.index', compact('data'));
+        return view('admin.index', compact('data', 'facility'));
     }
 
     public function addSpace()
@@ -62,5 +64,25 @@ class AdminController extends Controller
         ]);
 
         return Response()->json(['success' => 'Price updated successfully']);
+    }
+
+    public function updateFacility(Request $request)
+    {
+        foreach ($request->facility as $key => $r) {
+            if ($r == null && $request->id[$key] != null) {
+                Facility::where('id', $request->id[$key])->delete();
+                continue;
+            } else if ($r == null && $request->id[$key] == null) {
+                continue;
+            }
+            Facility::updateOrInsert([
+                'space_id' => $request->space_id,
+                'id' => $request->id[$key],
+            ], [
+                'name' => $r,
+            ]);
+        }
+
+        return Response()->json(['success' => 'Facility updated successfully']);
     }
 }

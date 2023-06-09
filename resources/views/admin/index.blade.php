@@ -52,7 +52,7 @@
         </div>
         <div class="row">
             <div class="col">
-                <div class="h4">Kapasitar</div>
+                <div class="h4">Kapasitas</div>
             </div>
             <div class="col">
                 <div class="h4">{{ $data->capacity }}</div>
@@ -65,55 +65,106 @@
                 </div>
             </div>
             <div class="col">
-                <a href="" class="btn btn-secondary">Ubah</a>
+                <a onclick="facilityModal()" class="btn btn-secondary">Ubah</a>
             </div>
         </div>
         <div class="row">
-
+            @foreach ($facility as $f)
+                <div class="col">
+                    <div class="h4">{{ $f->name }}</div>
+                </div>
+            @endforeach
         </div>
-    @endif
 
-    <!-- boostrap price modal -->
-    <div class="modal fade" id="priceModal" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="container">
-                        <div class="fw-bold">Edit Harga</div>
-                        <form action="javascript:void(0)" id="priceForm" name="priceForm" class="form-horizontal"
-                            method="POST" enctype="multipart/form-data">
-                            <input type="hidden" name="id" id="id" value="{{ $data->id }}">
-                            <div class="form-group">
-                                <div class="col-5">
-                                    <select class="form-select" name="price_type" id="price_type">
-                                        <option value="1">Coworking Space</option>
-                                        <option value="2">Meeting Room</option>
-                                    </select>
+
+        <!-- boostrap price modal -->
+        <div class="modal fade" id="priceModal" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="container">
+                            <div class="fw-bold">Edit Harga</div>
+                            <form action="javascript:void(0)" id="priceForm" name="priceForm" class="form-horizontal"
+                                method="POST" enctype="multipart/form-data">
+                                <input type="hidden" name="id" id="id" value="{{ $data->id }}">
+                                <div class="form-group">
+                                    <div class="col-5">
+                                        <select class="form-select" name="price_type" id="price_type">
+                                            <option value="1">Coworking Space</option>
+                                            <option value="2">Meeting Room</option>
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group mt-2">
-                                <div class="col-sm-12">
-                                    <input type="number" class="form-control" id="coworking_price" name="coworking_price"
-                                        placeholder="Rp. 50.000">
+                                <div class="form-group mt-2">
+                                    <div class="col-sm-12">
+                                        <input type="number" class="form-control" id="coworking_price"
+                                            name="coworking_price" placeholder="Rp. 50.000">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group mt-2">
-                                <div class="col-sm-12">
-                                    <input type="number" class="form-control" id="meeting_price" name="meeting_price"
-                                        placeholder="Rp. 100.000">
+                                <div class="form-group mt-2">
+                                    <div class="col-sm-12">
+                                        <input type="number" class="form-control" id="meeting_price" name="meeting_price"
+                                            placeholder="Rp. 100.000">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col mt-2">
-                                <button type="submit" class="btn btn-secondary text-white" id="btn-save">Save changes
-                                </button>
-                            </div>
-                        </form>
+                                <div class="col mt-2">
+                                    <button type="submit" class="btn btn-secondary text-white" id="btn-save">Save changes
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- end bootstrap model -->
+        <!-- end bootstrap model -->
+
+        <!-- boostrap price modal -->
+        <div class="modal fade" id="facilityModal" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-body p-4">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="fw-bold">Edit Fasilitas</div>
+                                </div>
+                                <div class="col-2 me-4">
+                                    <div class="btn btn-secondary" onclick="addInput()">Tambah</div>
+                                </div>
+                            </div>
+                            <form action="javascript:void(0)" id="facilityForm" name="facilityForm" class="form-horizontal"
+                                method="POST" enctype="multipart/form-data">
+                                <input type="hidden" name="space_id" id="space_id" value="{{ $data->id }}">
+                                <div class="form-group mt-2" id="facilityInput">
+                                    @foreach ($facility as $f)
+                                        <div class="col-sm-12 mt-2">
+                                            <input type="hidden" name="id[]" id="id" value="{{$f->id}}">
+                                            <input type="text" class="form-control" id="facility" name="facility[]"
+                                                placeholder="Masukkan Fasilitas" value="{{$f->name}}">
+                                        </div>
+                                    @endforeach
+                                    @if (!isset($facility))
+                                        <div class="col-sm-12 mt-2">
+                                            <input type="hidden" name="id[]" id="id" value="">
+                                            <input type="text" class="form-control" id="facility" name="facility[]"
+                                                placeholder="Masukkan Fasilitas">
+                                        </div>
+                                    @endif
+                                </div>
+                                <div class="col mt-2">
+                                    <button type="submit" class="btn btn-secondary text-white" id="btn-save">Save
+                                        changes
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end bootstrap model -->
+    @endif
 @endsection
 
 @section('script')
@@ -169,6 +220,36 @@
                 },
                 error: function(data) {
                     console.log(data);
+                }
+            });
+        });
+
+        function facilityModal() {
+            $('#facilityModal').modal('show');
+        }
+
+        function addInput() {
+            var input =
+                '<div class="col-sm-12 mt-2"> <input type="hidden" name="id[]" id="id" value=""> <input type = "text" class = "form-control" id = "facility" name = "facility[]" placeholder= "Masukkan Fasilitas"></div>';
+            $('#facilityInput').append(input);
+        }
+
+        $('#facilityForm').submit(function(e) {
+            e.preventDefault();
+            var formData = new FormData(this);
+            $.ajax({
+                type: 'POST',
+                url: "{{ route('admin.spaces.facility.update') }}",
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: (data) => {
+                    $('#facilityModal').modal('hide');
+                    location.reload();
+                },
+                error: function(data) {
+                    console.log(data['responseText']);
                 }
             });
         });
