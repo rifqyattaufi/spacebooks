@@ -79,20 +79,20 @@
         <a class="navbar-brand" href="#">
             <img src="{{ asset('assets/images/LOGO SPACEBOOK.png') }}" alt="Bootstrap" width="150px">
         </a>
-        <div class="row ">
+        <div class="row align-items-center mt-3">
             <div class="col-6 d-flex aligns-items-center justify-content-center">
                 <div class="row">
                     <form method="POST" action="{{ route('register.store') }}">
                         @csrf
                         <div class="h2 fw-bold">Selamat Datang</div>
-                        <div class="fs-6">Ayo mulai mencari working space terbaik</div>
+                        <div class="fs-6 mb-5">Ayo mulai mencari working space terbaik</div>
                         @error('error')
                             <div class="alert alert-danger" role="alert">
                                 {{ $message }}
                             </div>
                         @enderror ()
                         <div class="mb-3">
-                            <label for="exampleInputEmail1" class="form-label fw-semibold">Nama lengkap<span
+                            <label for="exampleInputEmail1" class="form-label fw-semibold">Nama Lengkap<span
                                     class="text-danger">*</span></label>
                             <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
                                 name="name">
@@ -103,7 +103,7 @@
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="exampleInputEmail1" class="form-label fw-semibold">Email address<span
+                            <label for="exampleInputEmail1" class="form-label fw-semibold">Email<span
                                     class="text-danger">*</span></label>
                             <input type="text" class="form-control @error('email') is-invalid @enderror" id="email"
                                 name="email">
@@ -131,13 +131,13 @@
                                 name="password_confirmation" data-toggle="password">
                         </div>
                         <button type="submit" class="btn btn-secondary text-light fw-bold w-100">Daftar</button>
-                        <div class="fs-7 text-center">Sudah punya akun? <a href="{{ route('login') }}"
+                        <div class="fs-7 text-center mt-3">Sudah punya akun? <a href="{{ route('login') }}"
                                 class="fw-bold text-dark">Masuk</a></div>
                     </form>
                 </div>
             </div>
             <div class="col-6 d-flex aligns-items-center justify-content-center">
-
+                <img src="{{ asset('assets/images/spacer.png') }}" alt="Image" width="400px">
             </div>
         </div>
     </div>
