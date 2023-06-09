@@ -40,13 +40,13 @@
                     </ul>
                     <ul class="navbar-nav justify-content-center">
                         <li class="nav-item">
-                            <a class="nav-link active" href="#">Home</a>
+                            <a class="nav-link active" href="{{ '/' }}">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Cari Tempat</a>
+                            <a class="nav-link" href="{{ '/caritempat' }}">Cari Tempat</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Tambah Tempat</a>
+                            <a class="nav-link" href="{{ '/tambahtempat' }}">Tambah Tempat</a>
                         </li>
                     </ul>
                     <!-- Right Side Of Navbar -->
@@ -93,7 +93,7 @@
                 </div>
             </section>
 
-            <footer class="bg-primary text-white py-5">
+            <footer class="bg-primary text-white py-5 m-auto">
             <div class="container">
                 <div class="row">
                 <div class="col-lg-4">
@@ -130,10 +130,12 @@
                     </ul>
                 </div>
                 </div>
-                <div class="row">
-                <div class="col-lg-12 text-center">
-                    <p class="mt-4">Copyright&copy; 2023 SpaceBook. All rights reserved.</p>
-                </div>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12 text-center">
+                            <p class="mt-4">Copyright&copy; 2023 SpaceBook. All rights reserved.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
             </footer>

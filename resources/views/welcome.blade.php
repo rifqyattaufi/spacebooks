@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+<section>
 <div class="container">
     <div class="row align-items-center p-0">
         <div class="col-lg-6 py-5 px-4 order-md-1 order-md-2">
@@ -13,6 +14,7 @@
         </div>
     </div>
 </div>
+</section>
 
 <section class="my-5">
   <div class="container">
@@ -241,12 +243,6 @@
                 </div>
             </div>
         </div>
-    </div>
-</section>
-
-<section class="p-5">
-    <div class="container">
-
     </div>
 </section>
 
