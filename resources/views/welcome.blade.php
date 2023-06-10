@@ -28,11 +28,33 @@
                             <img src="{{ asset('assets/images/image1.png') }}" class="card-img-top" alt="Card Image">
                             <div class="card-body">
 
-                                <h5 class="card-title">EZO Working Space</h5>
+                                <h5 class="card-title">{{ $d->name }}</h5>
 
-                                <p class="card-text">Coworking Space</p>
+                                <p class="card-text">
+                                    @if ($d->coworking_price != null)
+                                        Coworking Space
+                                    @endif
+                                    @if ($d->coworking_price != null && $d->meeting_price != null)
+                                        &
+                                    @endif
+                                    @if ($d->meeting_price != null)
+                                        Meeting Room
+                                    @endif
+                                </p>
 
-                                <p class="card-text">Rp.50rb - 150rb/h</p>
+                                <p class="card-text">
+                                    @if ($d->coworking_price > $d->meeting_price && $d->meeting_price != null)
+                                        Rp.{{ number_format($d->meeting_price) }} -
+                                        {{ number_format($d->coworking_price) }}/h
+                                    @elseif ($d->coworking_price < $d->meeting_price && $d->coworking_price != null)
+                                        Rp.{{ number_format($d->coworking_price) }} -
+                                        {{ number_format($d->meeting_price) }}/h
+                                    @elseif ($d->coworking_price != null)
+                                        Rp.{{ number_format($d->coworking_price) }}/h
+                                    @elseif ($d->meeting_price != null)
+                                        Rp.{{ number_format($d->meeting_price); }}/h
+                                    @endif
+                                </p>
 
                                 <div class="rating">
                                     <span class="text-warning">&#9733;</span>
@@ -40,7 +62,7 @@
                                     <span class="text-warning">&#9733;</span>
                                     <span class="text-muted">&#9733;</span>
                                     <span class="text-muted">&#9733;</span>
-                                    <span class="text-muted rating-text mr-2">322 reviews</span>
+                                    <span class="text-muted rating-text mr-2">{{$d->count}} reviews</span>
                                 </div>
 
                                 <div class="d-grid gap-2">
@@ -120,7 +142,8 @@
                 <div class="col-md-4">
                     <div class="card mb-4 border-0">
                         <div class="card-body text-center">
-                            <image src="{{ asset('assets/images/icon1.png') }}" alt="Booking Tempat" class="img-fluid mb-4">
+                            <image src="{{ asset('assets/images/icon1.png') }}" alt="Booking Tempat"
+                                class="img-fluid mb-4">
                                 <h5 class="card-title">Booking Tempat</h5>
                                 <p class="card-text">Cari Coworking space sesuai kebutuhan dan booking tempat lebih cepat.
                                 </p>
