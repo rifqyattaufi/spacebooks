@@ -66,15 +66,30 @@
                             @endif
                         @else
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item"href="{{ route('logout') }}">
-                                        {{ __('Logout') }}
+                                <div class="d-flex flex-row align-items-center justify-content-center">
+                                    <img src="{{ asset('assets/images/men.png') }}" alt="Profile Picture" class="rounded-circle" width="60" height="60">
+                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     </a>
+                                    
+                                    <div class="dropdown-menu dropdown-menu-end p-0 m-0" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item p-0 m-0"href="{{ route('logout') }}">
+                                            <div class="card d-flex flex-column">
+                                                <div class="card-body">
+                                                    <div class="col">
+                                                        {{ Auth::user()->name }}
+                                                    </div>
+                                                    <div class="col">
+                                                        {{ Auth::user()->email }}
+                                                    </div>
+                                                </div>
+                                                <div class="card-footer text-secondary">
+                                                    <a href="#" class="text-decoration-none fw-bold lh-lg text-primary mb-3">Bookingan Saya</a  >
+                                                    {{ __('Logout') }}
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
                                 </div>
                             </li>
                         @endguest
