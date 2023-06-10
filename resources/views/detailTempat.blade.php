@@ -6,8 +6,10 @@
     <div class="row align-items-center">
       <div class="col">
         <div class="d-flex align-items-center mb-5">
-          <img src="{{ asset('assets/images/backIcon.png') }}" alt="Back" width="20">
-          <h4 class="ms-2 my-0">Back</h4>
+          <a href="/" class="text-decoration-none d-flex flex-row justify-content-center align-items-center">
+            <img src="{{ asset('assets/images/backIcon.png') }}" alt="Back" width="20">
+            <h4 class="ms-2 my-0">Back</h4>
+          </a>
         </div>
         <div class="container-fluid mt-5">
           <div class="row flex-nowrap overflow-auto align-items-center">
@@ -179,7 +181,11 @@
       <div class="col-lg-12">
         <h3 class="fw-bold d-flex align-items-center">
           Review
-          <img src="{{ asset('assets/images/addIcon.png') }}" alt="Review Icon" width="40" class="ms-2">
+          @guest
+
+          @else
+            <img src="{{ asset('assets/images/addIcon.png') }}" alt="Review Icon" width="40" class="ms-2">
+          @endguest
         </h3>
       </div>
       <div class="col-lg-12">

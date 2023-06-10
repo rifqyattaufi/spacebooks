@@ -94,14 +94,12 @@
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col-lg-6 d-flex justify-content-start">
-                            @foreach ($facility as $f)
-                                <div class="col d-flex justify-content-center align-items-center">
-                                    <h6 class="me-2 ms-2">{{ $f->name }}</h6>
-                                </div>
-                            @endforeach
-                        </div>
+                    <div class="row row-cols-5">
+                        @foreach ($facility as $f)
+                            <div class="col d-flex justify-content-start">
+                                <h6 class="me-2 ms-2">{{ $f->name }}</h6>
+                            </div>
+                        @endforeach
                     </div>
             </div>
         </div>
@@ -142,6 +140,45 @@
                                 <button type="submit" class="btn btn-secondary text-white" id="btn-save">Save changes
                                 </button>
                             </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end bootstrap model -->
+
+    <!-- boostrap price modal -->
+    <div class="modal fade" id="facilityModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body p-4">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <div class="fw-bold">Edit Fasilitas</div>
+                            </div>
+                            <div class="col-2 mx-4">
+                                <img src="{{ asset('assets/images/plusIcon.png') }}" onclick="addInput()" alt="Add"
+                                    width="30" class="mx-2">
+                            </div>
+                        </div>
+                        <div class="form-group mt-2">
+                            <div class="col-sm-12">
+                                <input type="number" class="form-control" id="coworking_price" name="coworking_price"
+                                    placeholder="Rp. 50.000">
+                            </div>
+                        </div>
+                        <div class="form-group mt-2">
+                            <div class="col-sm-12">
+                                <input type="number" class="form-control" id="meeting_price" name="meeting_price"
+                                    placeholder="Rp. 100.000">
+                            </div>
+                        </div>
+                        <div class="col mt-2">
+                            <button type="submit" class="btn btn-secondary text-white" id="btn-save">Save changes
+                            </button>
+                        </div>
                         </form>
                     </div>
                 </div>
