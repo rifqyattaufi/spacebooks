@@ -91,14 +91,12 @@
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col-lg-6 d-flex justify-content-start">
-                            @foreach ($facility as $f)
-                                <div class="col d-flex justify-content-center align-items-center">
-                                    <h6 class="me-2 ms-2">{{ $f->name }}</h6>
-                                </div>
-                            @endforeach
-                        </div>
+                    <div class="row row-cols-5">
+                        @foreach ($facility as $f)
+                            <div class="col d-flex justify-content-start">
+                                <h6 class="me-2 ms-2">{{ $f->name }}</h6>
+                            </div>
+                        @endforeach
                     </div>
             </div>
         </div>
