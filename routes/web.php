@@ -46,6 +46,8 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
     Route::post('/gallery/add', [AdminController::class, 'addGallery'])->name('admin.gallery.add');
 
     Route::get('/jadwal', [AdminController::class, 'jadwal'])->name('admin.jadwal');
+    Route::post('/jadwal/add', [AdminController::class, 'addJadwal'])->name('admin.jadwal.add');
+    Route::post('/jadwal/get', [AdminController::class, 'getJadwal'])->name('admin.jadwal.get');
 });
 
 Route::get('/', function () {

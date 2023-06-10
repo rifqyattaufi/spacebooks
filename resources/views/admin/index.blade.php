@@ -139,12 +139,13 @@
                                 <div class="form-group mt-2" id="facilityInput">
                                     @foreach ($facility as $f)
                                         <div class="col-sm-12 mt-2">
-                                            <input type="hidden" name="id[]" id="id" value="{{$f->id}}">
+                                            <input type="hidden" name="id[]" id="id"
+                                                value="{{ $f->id }}">
                                             <input type="text" class="form-control" id="facility" name="facility[]"
-                                                placeholder="Masukkan Fasilitas" value="{{$f->name}}">
+                                                placeholder="Masukkan Fasilitas" value="{{ $f->name }}">
                                         </div>
                                     @endforeach
-                                    @if (!isset($facility))
+                                    @if (count($facility) == 0)
                                         <div class="col-sm-12 mt-2">
                                             <input type="hidden" name="id[]" id="id" value="">
                                             <input type="text" class="form-control" id="facility" name="facility[]"

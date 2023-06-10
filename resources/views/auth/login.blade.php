@@ -70,59 +70,58 @@
         </div>
     </div>
 </div> --}}
-<div class="container">
-  <a class="navbar-brand" href="#">
-    <img src="{{ asset('assets/images/LOGO SPACEBOOK.png') }}" alt="Bootstrap" width="150px">
-  </a>
-  <div class="row align-items-center">
-    <div class="col-lg-6 d-flex align-items-center justify-content-center">
-      <div class="row">
-        <form method="POST" action="{{ route('login.authenticate') }}">
-          @csrf
-          <div class="h2 fw-bold">Selamat Datang Kembali!</div>
-          <div class="fs-6 mb-5">Mohon isi kembali data anda</div>
-          @error('error')
-            <div class="alert alert-danger" role="alert">
-              {{ $message }}
+    <div class="container">
+        <a class="navbar-brand" href="#">
+            <img src="{{ asset('assets/images/LOGO SPACEBOOK.png') }}" alt="Bootstrap" width="150px">
+        </a>
+        <div class="row align-items-center">
+            <div class="col-lg-6 d-flex align-items-center justify-content-center">
+                <div class="row">
+                    <form method="POST" action="{{ route('login.authenticate') }}">
+                        @csrf
+                        <div class="h2 fw-bold">Selamat Datang Kembali!</div>
+                        <div class="fs-6 mb-5">Mohon isi kembali data anda</div>
+                        @error('error')
+                            <div class="alert alert-danger" role="alert">
+                                {{ $message }}
+                            </div>
+                        @enderror()
+                        @if (session('success'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label fw-semibold">Email<span
+                                    class="text-danger">*</span></label>
+                            <input type="text" class="form-control @error('email') is-invalid @enderror" id="email"
+                                name="email">
+                            @error('email')
+                                <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label fw-semibold">Password<span
+                                    class="text-danger">*</span></label>
+                            <input type="password" class="form-control @error('password') is-invalid @enderror"
+                                id="password" name="password" data-toggle="password">
+                            @error('password')
+                                <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        <button type="submit" class="btn btn-secondary text-light fw-bold w-100">Masuk</button>
+                        <div class="fs-7 text-center mt-3">Belum punya akun? <a href="{{ route('register') }}"
+                                class="fw-bold text-dark">Daftar</a></div>
+                    </form>
+                </div>
             </div>
-          @enderror()
-          @if (session('success'))
-            <div class="alert alert-success" role="alert">
-              {{ session('success') }}
+            <div class="col-lg-6 d-flex align-items-center justify-content-center">
+                <img src="{{ asset('assets/images/spacerlog.png') }}" alt="Image" width="400px">
             </div>
-          @endif
-          <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label fw-semibold">Email<span
-                class="text-danger">*</span></label>
-            <input type="text" class="form-control @error('email') is-invalid @enderror" id="email"
-              name="email">
-            @error('email')
-              <div id="validationServerUsernameFeedback" class="invalid-feedback">
-                {{ $message }}
-              </div>
-            @enderror
-          </div>
-          <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label fw-semibold">Password<span
-                class="text-danger">*</span></label>
-            <input type="password" class="form-control @error('password') is-invalid @enderror"
-              id="password" name="password" data-toggle="password">
-            @error('password')
-              <div id="validationServerUsernameFeedback" class="invalid-feedback">
-                {{ $message }}
-              </div>
-            @enderror
-          </div>
-          <button type="submit" class="btn btn-secondary text-light fw-bold w-100">Masuk</button>
-          <div class="fs-7 text-center mt-3">Belum punya akun? <a href="{{ route('register') }}"
-              class="fw-bold text-dark">Daftar</a></div>
-        </form>
-      </div>
+        </div>
     </div>
-    <div class="col-lg-6 d-flex align-items-center justify-content-center">
-        <img src="{{ asset('assets/images/spacerlog.png') }}" alt="Image" width="400px">
-    </div>
-  </div>
-</div>
-
 @endsection
