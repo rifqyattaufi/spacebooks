@@ -1,80 +1,108 @@
 @extends('layouts.app-admin')
 
 @section('content')
-    @if (!isset($data))
-        Belum bikin spaces kamu? ayo bikin sekarang
-        <a href="{{ route('admin.spaces.add') }}" class="btn btn-secondary">Buat</a>
-    @else
-        <div class="h1">{{ $data->name }}</div>
-        <div class="h4">{{ $data->description }}</div>
+    <div class="container">
         <div class="row">
-            <div class="col">
-                <div class="h2">Harga</div>
-            </div>
-            <div class="col">
-                <a onclick="editPrice({{ $data->id }})" data-toggle="tooltip" class="btn btn-secondary">Ubah</a>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                Coworking Space
-            </div>
-            <div class="col">
-                @if ($data->coworking_price == null || $data->coworking_price == 0)
-                    <span class="text-danger">Tidak tersedia</span>
+            <div class="col-lg-12 p-5">
+                @if (!isset($data))
+                    Belum bikin spaces kamu? ayo bikin sekarang
+                    <a href="{{ route('admin.spaces.add') }}" class="btn btn-secondary">Buat</a>
                 @else
-                    Rp. {{ number_format($data->coworking_price) }} ,-
-                @endif
+                    <h1 class="text-left fw-bold">{{ $data->name }}</h1>
+                    <h6 class="fw-normal lh-lg mb-4 text-wrap" style="width: 80%;">{{ $data->description }}</h6>
+
+                    <div class="row d-flex justify-content-between">
+                        <div class="col-lg-6 d-flex justify-content-start">
+                            <h3 class="fw-bold">Harga</h3>
+                        </div>
+                        <div class="col-lg-6 d-flex justify-content-center">
+                            <a onclick="editPrice({{ $data->id }})" data-toggle="tooltip">
+                                <img src="{{ asset('assets/images/editIcon.png') }}" alt="Edit" width="30" class="me-2">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row d-flex align-items-center">
+                        <div class="col d-flex align-items-center">
+                            <h6 class="mt-2">Coworking Space</h6>
+                        </div>
+                        <div class="col d-flex align-items-center">
+                            @if ($data->coworking_price == null || $data->coworking_price == 0)
+                                <h6 class="text-danger">Tidak tersedia</h6>
+                            @else
+                                <h6 class="m-0">Rp. {{ number_format($data->coworking_price) }} ,-</h6>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="row d-flex align-items-center">
+                        <div class="col d-flex align-items-center">
+                            <h6 class="mt-2">Meeting Room</h6>
+                        </div>
+                        <div class="col d-flex align-items-center">
+                            @if ($data->meeting_price == null || $data->meeting_price == 0)
+                                <h6 class="text-danger">Tidak tersedia</h6>
+                            @else
+                                <h6 class="m-0">Rp. {{ number_format($data->meeting_price) }} ,-</h6>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="row mt-4 d-flex justify-content-between">
+                        <div class="col-lg-12 d-flex justify-content-start">
+                            <h3 class="fw-bold mb-3">Lokasi</h3>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="d-flex align-items-center">
+                                <img src="{{ asset('assets/images/pinIcon.png') }}" alt="Location" width="15" class="me-4">
+                                <h6 class="m-0">{{ $data->address }}</h6>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row mt-4 d-flex justify-content-between">
+                        <div class="col-lg-12 d-flex justify-content-start">
+                            <h3 class="fw-bold mb-3">Jam Buka dan Kapasitas</h3>
+                        </div>
+                    </div>
+                    <div class="row d-flex align-items-center">
+                        <div class="col d-flex align-items-center">
+                            <h6 class="mt-2">{{ $data->open_day }} - {{ $data->close_day }}</h6>
+                        </div>
+                        <div class="col d-flex align-items-center">
+                            <h6 class="m-0">{{ $data->open_time }} - {{ $data->close_time }}</h6>
+                        </div>
+                    </div>
+                    <div class="row d-flex align-items-center">
+                        <div class="col d-flex align-items-center">
+                            <h6 class="mt-2">Kapasitas</h6>
+                        </div>
+                        <div class="col d-flex align-items-center">
+                            <h6 class="m-0">{{ $data->capacity }} Orang</h6>
+                        </div>
+                    </div>
+
+                    <div class="row mt-4 d-flex justify-content-between">
+                        <div class="col-lg-6 d-flex justify-content-start">
+                            <h3 class="fw-bold mb-3">Fasilitas</h3>
+                        </div>
+                        <div class="col-lg-6 d-flex justify-content-center">
+                            <a onclick="facilityModal()" data-toggle="tooltip">
+                                <img src="{{ asset('assets/images/editIcon.png') }}" alt="Edit" width="30" class="me-2">
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6 d-flex justify-content-start">
+                            @foreach ($facility as $f)
+                                <div class="col d-flex justify-content-center align-items-center">
+                                    <h6 class="me-2 ms-2">{{ $f->name }}</h6>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col">
-                Meeting Room
-            </div>
-            <div class="col">
-                @if ($data->meeting_price == null || $data->meeting_price == 0)
-                    <span class="text-danger">Tidak tersedia</span>
-                @else
-                    Rp. {{ number_format($data->meeting_price) }} ,-
-                @endif
-            </div>
-        </div>
-        <div class="h2">Lokasi</div>
-        <div class="h4">{{ $data->address }}</div>
-        <div class="h2">Jam Buka dan Kapasitas</div>
-        <div class="row">
-            <div class="col">
-                <div class="h4">{{ $data->open_day }} - {{ $data->close_day }}</div>
-            </div>
-            <div class="col">
-                <div class="h4">{{ $data->open_time }} - {{ $data->close_time }}</div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <div class="h4">Kapasitas</div>
-            </div>
-            <div class="col">
-                <div class="h4">{{ $data->capacity }}</div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <div class="h2">
-                    Fasilitas
-                </div>
-            </div>
-            <div class="col">
-                <a onclick="facilityModal()" class="btn btn-secondary">Ubah</a>
-            </div>
-        </div>
-        <div class="row">
-            @foreach ($facility as $f)
-                <div class="col">
-                    <div class="h4">{{ $f->name }}</div>
-                </div>
-            @endforeach
-        </div>
+    </div>
 
 
         <!-- boostrap price modal -->

@@ -77,15 +77,15 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-lg-6 p-5 bg-light">
-            <div class="container">
+        <div class="col-lg-6 p-2 bg-light">
+            <div class="container p-5">
                 <div class="row">
                     <div class="col-lg-12 d-flex align-items-center justify-content-center">
                         <div class="row">
                             <a class="navbar-brand" href="#">
                                 <img src="{{ asset('assets/images/LOGO SPACEBOOK.png') }}" alt="Bootstrap" width="150px">
                             </a>
-                            <div class="p-3 mt-5">
+                            <div class="p-3 mt-2">
                                 <form method="POST" action="{{ route('register.store') }}">
                                     @csrf
                                     <div class="h2 fw-bold">Selamat Datang</div>
