@@ -16,9 +16,12 @@ class AdminController extends Controller
     public function index()
     {
         $data = Space::where('admin_id', auth()->user()->id)->first();
-        $facility = Facility::where('space_id', $data->id)->get();
+        if ($data != null) {
+            $facility = Facility::where('space_id', $data->id)->get();
+            return view('admin.index', compact('data', 'facility'));
+        }
+        return view('admin.index', compact('data'));
 
-        return view('admin.index', compact('data', 'facility'));
     }
 
     public function addSpace()

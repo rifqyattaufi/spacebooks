@@ -7,7 +7,7 @@
         <div class="col-lg-6 py-5 px-4 order-md-1 order-md-2">
             <h2 class="fw-bold lh-base">Memudahkan Anda dalam menemukan dan reservasi Coworking Space</h2>
             <p class="fw-light my-2">Menyediakan info terlengkap seputar Coworking Space di wilayah Anda</p>
-            <a href="{{ route('register') }}" class="btn btn-secondary text-white ps-5 pe-5 my-3">Cari Tempat</a>
+            <a href="{{ '/caritempat' }}" class="btn btn-secondary text-white ps-5 pe-5 my-3">Cari Tempat</a>
         </div>
         <div class="col-lg-6 py-5 px-4 order-md-2 order-md-1">
             <img src="{{ asset('assets/images/banner.png') }}" alt="Spacebook" class="img-fluid">
@@ -43,7 +43,7 @@
             </div>
     
             <div class="d-grid gap-2">
-                <a href="#" class="btn btn-secondary text-white mt-3">Detail</a>
+                <a href="{{ '/detailtempat' }}" class="btn btn-secondary text-white mt-3">Detail</a>
             </div>
           </div>
         </div>
@@ -167,8 +167,8 @@
             <div class="col-lg-12">
                 <div class="card mb-4 shadow">
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col-lg-6 text-center">
+                        <div class="row p-5">
+                            <div class="col-lg-6">
                                 <h2 class="fw-bold lh-base">Ingin menambahkan coworking spacemu?</h2>
                                 <p class="fw-light my-2">Daftarkan coworking spacemu di sini</p>
                                 <a href="{{ route('register') }}" class="btn btn-secondary text-white ps-5 pe-5 my-3">Hubungi Kami</a>

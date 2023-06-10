@@ -6,10 +6,12 @@
 
 // // Bootstrap
 @import 'bootstrap/scss/bootstrap';
+@import 'bootstrap-icons/font/bootstrap-icons.css';
 
 // $theme-colors: map-merge($theme-colors, $custom-colors);
 .auth {
-    height: 100%;
+    height: 100vh;
+    width: 100%;
     background: linear-gradient(to right,
             white 0%,
             white 50%,
@@ -17,6 +19,27 @@
             #264D4B 100%);
 }
 
-.full-height {
-    height: 100%;
+.btn:hover {
+    color: white;
 }
+
+.form-control:focus {
+    border-color: $gray-400;
+    box-shadow: none;
+}
+
+@media (max-width: 768px) {
+    .auth {
+        background: white 100%;
+    }
+    .right-side {
+        display: none !important;
+    }
+    .right-side-a {
+        display: none !important;
+    }
+}
+
+// .full-height {
+//     height: 100%;
+// }

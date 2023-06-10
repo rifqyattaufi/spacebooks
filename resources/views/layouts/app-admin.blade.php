@@ -86,38 +86,40 @@
         </nav> --}}
         <div class="container-fluid">
             <div class="row flex-nowrap">
-                <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-primary">
-                    <div
-                        class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
-                        <a href="/"
-                            class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-primary min-vh-100">
+                    <div class="d-flex flex-column align-items-center text-white pt-5">
+                        <a href="/" class="pb-5">
                             {{-- <span class="fs-5 d-none d-sm-inline">Menu</span> --}}
-                            <img src="{{ asset('assets/images/LOGO SPACEBOOK WHITE.png') }}" alt="Bootstrap"
-                                width="100px">
+                            <img src="{{ asset('assets/images/LOGO SPACEBOOK WHITE.png') }}" alt="Bootstrap" width="150px" class="img-fluid">
                         </a>
-                        <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
-                            id="menu">
-                            <li class="nav-item">
+                        <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                            <li class="nav-item btn btn-secondary pe-3 ps-2 mb-2">
                                 <a href="{{ route('admin.index') }}" class="nav-link align-middle px-0 text-light">
-                                    <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Dashboard</span>
+                                    <img src="{{ asset('assets/images/dashIcon.png') }}" alt="Dashboard" width="20" class="me-2"><span class="ms-1 d-none d-sm-inline">Dashboard</span>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="{{ route('admin.jadwal') }}" class="nav-link align-middle px-0 text-light">
-                                    <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Jadwal</span>
+                             <li class="nav-item btn pe-5 ps-2 mb-2 "> <!--  btn-secondary-->
+                             <a href="{{ route('admin.jadwal') }}" class="nav-link align-middle px-0 text-light">
+                                 <img src="{{ asset('assets/images/dateIcon.png') }}" alt="Jadwal" width="20" class="me-2"><span class="ms-1 d-none d-sm-inline">Jadwal</span>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="{{ route('admin.gallery') }}" class="nav-link align-middle px-0 text-light">
-                                    <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Galery</span>
-                                </a>
+                            <li class="nav-item btn pe-5 ps-2 mb-2">  <!--  btn-secondary  -->
+                            <a href="{{ route('admin.gallery') }}" class="nav-link align-middle px-0 text-light">
+                                <img src="{{ asset('assets/images/galleryIcon.png') }}" alt="Gallery" width="20" class="me-2"><span class="ms-1 d-none d-sm-inline">Galery</span>
+                            </a>
                             </li>
                         </ul>
                         <hr>
-                        <div class="pb-4">
-                            <a href="{{ route('admin.logout') }}"
-                                class="d-flex align-items-center text-white text-decoration-none">
-                                <span class="d-none d-sm-inline mx-1">Keluar</span>
+                        <hr>
+                        <hr>
+                        <hr>
+                        <hr>
+                        <hr>
+                        <hr>
+                        <div class="nav-item btn btn-danger d-flex align-items-center pe-5 ps-2 mb-5">
+                            <a href="{{ route('admin.logout') }}" class="nav-link align-middle px-0 text-light">
+                                <img src="{{ asset('assets/images/logoutIcon.png') }}" alt="Logout" width="30" class="me-2">
+                                <span class="ms-1 d-none d-sm-inline">Keluar</span>
                             </a>
                         </div>
                     </div>
