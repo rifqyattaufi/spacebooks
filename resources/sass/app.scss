@@ -18,6 +18,15 @@
             #264D4B 100%);
 }
 
+.btn:hover {
+    color: white;
+}
+
+.form-control:focus {
+    border-color: $gray-400;
+    box-shadow: none;
+}
+
 @media (max-width: 768px) {
     .auth {
         background: white 100%;

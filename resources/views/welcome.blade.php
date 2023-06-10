@@ -43,7 +43,7 @@
             </div>
     
             <div class="d-grid gap-2">
-                <a href="{{ '/detailempat' }}" class="btn btn-secondary text-white mt-3">Detail</a>
+                <a href="{{ '/detailtempat' }}" class="btn btn-secondary text-white mt-3">Detail</a>
             </div>
           </div>
         </div>
@@ -167,8 +167,8 @@
             <div class="col-lg-12">
                 <div class="card mb-4 shadow">
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col-lg-6 text-center">
+                        <div class="row p-5">
+                            <div class="col-lg-6">
                                 <h2 class="fw-bold lh-base">Ingin menambahkan coworking spacemu?</h2>
                                 <p class="fw-light my-2">Daftarkan coworking spacemu di sini</p>
                                 <a href="{{ route('register') }}" class="btn btn-secondary text-white ps-5 pe-5 my-3">Hubungi Kami</a>
