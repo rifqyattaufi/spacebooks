@@ -1,63 +1,48 @@
 @extends('layouts.app-admin')
 
 @section('content')
-    <div class="row">
-        @for ($i = $start; $i <= $end; $i++)
-            <div class="col">
-                <div class="row">
-                    {{ $week[$i] }}
-                </div>
-                <div class="row">
-                    {{ $date[$i] }}
-                </div>
-
-                @php $k = 0; @endphp
-                @for ($j = Carbon\Carbon::parse($data->open_time); $j <= Carbon\Carbon::parse($data->close_time); $j->addHour())
-                    <div class="row">
-                        <div class="col-1">
-                            <button class="btn btn-success @if (in_array($j->format('H:i:s'), $jadwal[$i])) disabled @endif"
-                                onclick="showForm('{{ $j->format('H:i:s') }}','{{ $week[$i] }}','{{ $date[$i] }}')">
-                                {{ $j->format('H:i') }}
-                            </button>
-                        </div>
-                    </div>
-                    @php $k++; @endphp
-                @endfor
+    <div class="container">
+        <div class="row p-4">
+            <div class="col-lg-12 d-flex justify-content-evenly">
+                <a class="btn btn-secondary text-light ps-5 pe-5" href="#">Coworking Space</a>
+                <a class="btn btn-outline-secondary ps-5 pe-5" href="#">Meeting Room</a>
             </div>
-        @endfor
-
-
-        <!-- boostrap price modal -->
-        <div class="modal fade" id="orderModal" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <div class="container">
-                            <div class="fw-bold">Buat Reservasi</div>
-                            <form action="javascript:void(0)" id="orderForm" name="orderForm" class="form-horizontal"
-                                method="POST" enctype="multipart/form-data">
-                                <input type="hidden" name="space_id" id="space_id" value="{{ $data->id }}">
-                                <input type="hidden" name="reserve_time" id="reserve_time">
-                                <input type="hidden" name="reserve_date" id="reserve_date">
-                                <div class="col">
-                                    <label for="" class="form-label">Email Pemesan</label>
-                                    <input type="email" name="email" id="email" class="form-control">
-                                    <div id="validationEmail" class="invalid-feedback" style="display: block">
-
-                                    </div>
-                                </div>
-
-                                <div class="col mt-2">
-                                    <button type="submit" class="btn btn-secondary text-white" id="btn-save">Buat
-                                        Reservasi</button>
-                                </div>
-                            </form>
-                        </div>
+            <div class="col-lg-12 d-flex justify-content-center my-4">
+                <img src="{{ asset('assets/images/warn.png') }}" alt="warning" width="15" class="me-4">
+                    <h6 class="m-0">Klik jam untuk mencatat reservasi terbaru pelanggan</h6>
+                    <img src="{{ asset('assets/images/warn.png') }}" alt="warning" width="15" class="ms-4">
+            </div>
+            <div class="col-lg-12 d-flex justify-content-center">
+                <div class="row align-items-center justify-content-center">
+                    @for ($i = $start; $i <= $end; $i++)
+                    <div class="col-lg-1 text-center ms-5">
+                        <h5>
+                            {{ $week[$i] }}
+                        </h5>
+                        <h6>
+                            {{ $date[$i] }}
+                        </h6>
+                            @php $k = 0; @endphp
+                            @for ($j = Carbon\Carbon::parse($data->open_time); $j <= Carbon\Carbon::parse($data->close_time); $j->addHour())
+                                <button class="btn btn-sm btn-success mb-2 rounded @if (in_array($j->format('H:i:s'), $jadwal[$i])) disabled @endif"
+                                    onclick="showForm('{{ $j->format('H:i:s') }}','{{ $week[$i] }}','{{ $date[$i] }}')">
+                                    {{ $j->format('H:i') }}
+                                </button>
+                            @php $k++; @endphp
+                            @endfor    
                     </div>
-                </div>
+                    @endfor
+                </div>    
+            </div>
+            <div class="col-lg-12 mt-4 d-flex justify-content-center">
+                <h6 class="mt-2">
+                    <a href="" class="btn btn-sm btn-success text-success rounded my-0">--</a>
+                    Tersedia
+                    <a href="" class="ms-5 btn btn-sm btn-danger text-danger rounded my-0">--</a>
+                    Tidak Tersedia
+                </h6>
             </div>
         </div>
-        <!-- end bootstrap model -->
     </div>
 @endsection
 
