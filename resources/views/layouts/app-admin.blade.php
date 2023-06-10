@@ -105,7 +105,7 @@
                             </li>
                             <li class="nav-item btn pe-5 ps-2 mb-2">  <!--  btn-secondary  -->
                             <a href="{{ route('admin.gallery') }}" class="nav-link align-middle px-0 text-light">
-                                <img src="{{ asset('assets/images/galleryIcon.png') }}" alt="Gallery" width="20" class="me-2"><span class="ms-1 d-none d-sm-inline">Galery</span>
+                                <img src="{{ asset('assets/images/galleryIcon.png') }}" alt="Gallery" width="20" class="me-2"><span class="ms-1 d-none d-sm-inline">Galeri</span>
                             </a>
                             </li>
                         </ul>
