@@ -17,7 +17,8 @@
                         </div>
                         <div class="col-lg-6 d-flex justify-content-center">
                             <a onclick="editPrice({{ $data->id }})" data-toggle="tooltip">
-                                <img src="{{ asset('assets/images/editIcon.png') }}" alt="Edit" width="30" class="me-2">
+                                <img src="{{ asset('assets/images/editIcon.png') }}" alt="Edit" width="30"
+                                    class="me-2 hover_tunjuk">
                             </a>
                         </div>
                     </div>
@@ -52,12 +53,13 @@
                         </div>
                         <div class="col-lg-12">
                             <div class="d-flex align-items-center">
-                                <img src="{{ asset('assets/images/pinIcon.png') }}" alt="Location" width="15" class="me-4">
+                                <img src="{{ asset('assets/images/pinIcon.png') }}" alt="Location" width="15"
+                                    class="me-4">
                                 <h6 class="m-0">{{ $data->address }}</h6>
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="row mt-4 d-flex justify-content-between">
                         <div class="col-lg-12 d-flex justify-content-start">
                             <h3 class="fw-bold mb-3">Jam Buka dan Kapasitas</h3>
@@ -86,7 +88,8 @@
                         </div>
                         <div class="col-lg-6 d-flex justify-content-center">
                             <a onclick="facilityModal()" data-toggle="tooltip">
-                                <img src="{{ asset('assets/images/editIcon.png') }}" alt="Edit" width="30" class="me-2">
+                                <img src="{{ asset('assets/images/editIcon.png') }}" alt="Edit" width="30"
+                                    class="me-2 hover_tunjuk">
                             </a>
                         </div>
                     </div>
@@ -105,94 +108,94 @@
     </div>
 
 
-        <!-- boostrap price modal -->
-        <div class="modal fade" id="priceModal" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <div class="container">
-                            <div class="fw-bold">Edit Harga</div>
-                            <form action="javascript:void(0)" id="priceForm" name="priceForm" class="form-horizontal"
-                                method="POST" enctype="multipart/form-data">
-                                <input type="hidden" name="id" id="id" value="{{ $data->id }}">
-                                <div class="form-group">
-                                    <div class="col-5">
-                                        <select class="form-select" name="price_type" id="price_type">
-                                            <option value="1">Coworking Space</option>
-                                            <option value="2">Meeting Room</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group mt-2">
-                                    <div class="col-sm-12">
-                                        <input type="number" class="form-control" id="coworking_price"
-                                            name="coworking_price" placeholder="Rp. 50.000">
-                                    </div>
-                                </div>
-                                <div class="form-group mt-2">
-                                    <div class="col-sm-12">
-                                        <input type="number" class="form-control" id="meeting_price" name="meeting_price"
-                                            placeholder="Rp. 100.000">
-                                    </div>
-                                </div>
-                                <div class="col mt-2">
-                                    <button type="submit" class="btn btn-secondary text-white" id="btn-save">Save changes
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- end bootstrap model -->
-
-        <!-- boostrap price modal -->
-        <div class="modal fade" id="facilityModal" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-body p-4">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col">
-                                    <div class="fw-bold">Edit Fasilitas</div>
-                                </div>
-                                <div class="col-2 me-4">
-                                    <div class="btn btn-secondary text-white" onclick="addInput()">Tambah</div>
+    <!-- boostrap price modal -->
+    <div class="modal fade" id="priceModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="fw-bold">Edit Harga</div>
+                        <form action="javascript:void(0)" id="priceForm" name="priceForm" class="form-horizontal"
+                            method="POST" enctype="multipart/form-data">
+                            <input type="hidden" name="id" id="id" value="{{ $data->id }}">
+                            <div class="form-group">
+                                <div class="col-5">
+                                    <select class="form-select" name="price_type" id="price_type">
+                                        <option value="1">Coworking Space</option>
+                                        <option value="2">Meeting Room</option>
+                                    </select>
                                 </div>
                             </div>
-                            <form action="javascript:void(0)" id="facilityForm" name="facilityForm" class="form-horizontal"
-                                method="POST" enctype="multipart/form-data">
-                                <input type="hidden" name="space_id" id="space_id" value="{{ $data->id }}">
-                                <div class="form-group mt-2" id="facilityInput">
-                                    @foreach ($facility as $f)
-                                        <div class="col-sm-12 mt-2">
-                                            <input type="hidden" name="id[]" id="id"
-                                                value="{{ $f->id }}">
-                                            <input type="text" class="form-control" id="facility" name="facility[]"
-                                                placeholder="Masukkan Fasilitas" value="{{ $f->name }}">
-                                        </div>
-                                    @endforeach
-                                    @if (count($facility) == 0)
-                                        <div class="col-sm-12 mt-2">
-                                            <input type="hidden" name="id[]" id="id" value="">
-                                            <input type="text" class="form-control" id="facility" name="facility[]"
-                                                placeholder="Masukkan Fasilitas">
-                                        </div>
-                                    @endif
+                            <div class="form-group mt-2">
+                                <div class="col-sm-12">
+                                    <input type="number" class="form-control" id="coworking_price" name="coworking_price"
+                                        placeholder="Rp. 50.000">
                                 </div>
-                                <div class="col mt-2">
-                                    <button type="submit" class="btn btn-secondary text-white" id="btn-save">Save
-                                        changes
-                                    </button>
+                            </div>
+                            <div class="form-group mt-2">
+                                <div class="col-sm-12">
+                                    <input type="number" class="form-control" id="meeting_price" name="meeting_price"
+                                        placeholder="Rp. 100.000">
                                 </div>
-                            </form>
-                        </div>
+                            </div>
+                            <div class="col mt-2">
+                                <button type="submit" class="btn btn-secondary text-white" id="btn-save">Save changes
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- end bootstrap model -->
+    </div>
+    <!-- end bootstrap model -->
+
+    <!-- boostrap price modal -->
+    <div class="modal fade" id="facilityModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body p-4">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <div class="fw-bold">Edit Fasilitas</div>
+                            </div>
+                            <div class="col-2 me-4">
+                                <div class="btn btn-secondary text-white" onclick="addInput()">Tambah</div>
+                            </div>
+                        </div>
+                        <form action="javascript:void(0)" id="facilityForm" name="facilityForm" class="form-horizontal"
+                            method="POST" enctype="multipart/form-data">
+                            <input type="hidden" name="space_id" id="space_id" value="{{ $data->id }}">
+                            <div class="form-group mt-2" id="facilityInput">
+                                @foreach ($facility as $f)
+                                    <div class="col-sm-12 mt-2">
+                                        <input type="hidden" name="id[]" id="id"
+                                            value="{{ $f->id }}">
+                                        <input type="text" class="form-control" id="facility" name="facility[]"
+                                            placeholder="Masukkan Fasilitas" value="{{ $f->name }}">
+                                    </div>
+                                @endforeach
+                                @if (count($facility) == 0)
+                                    <div class="col-sm-12 mt-2">
+                                        <input type="hidden" name="id[]" id="id" value="">
+                                        <input type="text" class="form-control" id="facility" name="facility[]"
+                                            placeholder="Masukkan Fasilitas">
+                                    </div>
+                                @endif
+                            </div>
+                            <div class="col mt-2">
+                                <button type="submit" class="btn btn-secondary text-white" id="btn-save">Save
+                                    changes
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end bootstrap model -->
     @endif
 @endsection
 

@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DataTableAjaxCRUDController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,8 +35,6 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
     Route::get('/logout', [LoginController::class, 'logout'])->name('admin.logout');
     Route::get('/', [AdminController::class, 'index'])->name('admin.index');
 
-    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-
     Route::get('/spaces/add', [AdminController::class, 'addSpace'])->name('admin.spaces.add');
     Route::post('/spaces/add', [AdminController::class, 'storeSpace'])->name('admin.spaces.store');
     Route::post('/spaces/price', [AdminController::class, 'getPrice'])->name('admin.spaces.price');
@@ -50,17 +49,12 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
     Route::post('/jadwal/get', [AdminController::class, 'getJadwal'])->name('admin.jadwal.get');
 });
 
-Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('/caritempat', function () {
-    return view('cariTempat');
-});
-Route::get('/detailtempat', function () {
-    return view('detailTempat');
-});
-Route::get('/tambahtempat', function () {
-    return view('tambahTempat');
-});
+Route::get('/', [UserController::class, 'index'])->name('home');
+Route::get('/home', [UserController::class, 'index']);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::middleware('auth')->group(function () {
+    Route::get('/caritempat', [UserController::class, 'cariTempat'])->name('caritempat');
+    Route::get('/detailtempat', function () {
+        return view('detailTempat');
+    })->name('detailtempat');
+});

@@ -9,11 +9,12 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
-   
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -23,7 +24,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="/">
                     <img src="{{ asset('assets/images/LOGO SPACEBOOK.png') }}" alt="Bootstrap" width="170.04px"
                         height="66.53px">
                 </a>
@@ -40,13 +41,15 @@
                     </ul>
                     <ul class="navbar-nav justify-content-center">
                         <li class="nav-item">
-                            <a class="nav-link active" href="{{ '/' }}">Home</a>
+                            <a class="nav-link @if (Route::currentRouteName() == 'home') active @endif"
+                                href="{{ route('home') }}">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ '/caritempat' }}">Cari Tempat</a>
+                            <a class="nav-link @if (Route::currentRouteName() == 'caritempat') active @endif"
+                                href="{{ route('caritempat') }}">Cari Tempat</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ '/tambahtempat' }}">Tambah Tempat</a>
+                            <a class="nav-link" onclick="adminModal()">Tambah Tempat</a>
                         </li>
                     </ul>
                     <!-- Right Side Of Navbar -->
@@ -86,7 +89,7 @@
         <main>
             @yield('content')
 
-                        
+
             <section class="p-5">
                 <div class="container">
 
@@ -94,50 +97,57 @@
             </section>
 
             <footer class="bg-primary text-white py-5 m-auto">
-            <div class="container">
-                <div class="row">
-                <div class="col-lg-4">
-                    <img src="{{ asset('assets/images/LOGO SPACEBOOK WHITE.png') }}" alt="Logo" class="mb-3" width="100">
-                    <p class="mb-4">Kerja jadi lebih mudah dan nyaman, booking ga perlu ribet lagi.</p>
-                    <div class="social-icons">
-                    <span class="follow-text">Follow Us:</span>
-                    <a href="#" class="text-decoration-none"><img src="{{ asset('assets/images/Instagram.png') }}" alt="Instagram"></a>
-                    <a href="#" class="text-decoration-none"><img src="{{ asset('assets/images/Facebook.png') }}" alt="Facebook"></a>
-                    <a href="#" class="text-decoration-none"><img src="{{ asset('assets/images/Linkedin.png') }}" alt="LinkedIn"></a>
-                    <a href="#" class="text-decoration-none"><img src="{{ asset('assets/images/Whatsapp.png') }}" alt="WhatsApp"></a>
-                    </div>
-                </div>
-                <div class="col-lg-2">
-                    <h5 class="mb-3">Tentang</h5>
-                    <ul class="list-unstyled">
-                    <li><a href="#" class="text-white text-decoration-none">Perusahaan</a></li>
-                    <li><a href="#" class="text-white text-decoration-none">Blog</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-2">
-                    <h5 class="mb-3">Produk</h5>
-                    <ul class="list-unstyled">
-                    <li><a href="#" class="text-white text-decoration-none">Ringkasan</a></li>
-                    <li><a href="#" class="text-white text-decoration-none">Fitur</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-4">
-                    <h5 class="mb-3">Bantuan</h5>
-                    <ul class="list-unstyled">
-                    <li><a href="#" class="text-white text-decoration-none">Syarat dan Ketentuan</a></li>
-                    <li><a href="#" class="text-white text-decoration-none">Kebijakan Pribadi</a></li>
-                    <li><a href="#" class="text-white text-decoration-none">Kontak</a></li>
-                    </ul>
-                </div>
-                </div>
-                <div class="container-fluid">
+                <div class="container">
                     <div class="row">
-                        <div class="col-lg-12 text-center">
-                            <p class="mt-4">Copyright&copy; 2023 SpaceBook. All rights reserved.</p>
+                        <div class="col-lg-4">
+                            <img src="{{ asset('assets/images/LOGO SPACEBOOK WHITE.png') }}" alt="Logo"
+                                class="mb-3" width="100">
+                            <p class="mb-4">Kerja jadi lebih mudah dan nyaman, booking ga perlu ribet lagi.</p>
+                            <div class="social-icons">
+                                <span class="follow-text">Follow Us:</span>
+                                <a href="#" class="text-decoration-none"><img
+                                        src="{{ asset('assets/images/Instagram.png') }}" alt="Instagram"></a>
+                                <a href="#" class="text-decoration-none"><img
+                                        src="{{ asset('assets/images/Facebook.png') }}" alt="Facebook"></a>
+                                <a href="#" class="text-decoration-none"><img
+                                        src="{{ asset('assets/images/Linkedin.png') }}" alt="LinkedIn"></a>
+                                <a href="#" class="text-decoration-none"><img
+                                        src="{{ asset('assets/images/Whatsapp.png') }}" alt="WhatsApp"></a>
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <h5 class="mb-3">Tentang</h5>
+                            <ul class="list-unstyled">
+                                <li><a href="#" class="text-white text-decoration-none">Perusahaan</a></li>
+                                <li><a href="#" class="text-white text-decoration-none">Blog</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-2">
+                            <h5 class="mb-3">Produk</h5>
+                            <ul class="list-unstyled">
+                                <li><a href="#" class="text-white text-decoration-none">Ringkasan</a></li>
+                                <li><a href="#" class="text-white text-decoration-none">Fitur</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-4">
+                            <h5 class="mb-3">Bantuan</h5>
+                            <ul class="list-unstyled">
+                                <li><a href="#" class="text-white text-decoration-none">Syarat dan Ketentuan</a>
+                                </li>
+                                <li><a href="#" class="text-white text-decoration-none">Kebijakan Pribadi</a>
+                                </li>
+                                <li><a href="#" class="text-white text-decoration-none">Kontak</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-12 text-center">
+                                <p class="mt-4">Copyright&copy; 2023 SpaceBook. All rights reserved.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
             </footer>
         </main>
     </div>

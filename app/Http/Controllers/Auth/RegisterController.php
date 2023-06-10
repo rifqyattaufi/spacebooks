@@ -61,7 +61,7 @@ class RegisterController extends Controller
     public function adminStore()
     {
         $credentials = $this->validate(request(), [
-            'email' => 'email|required|string',
+            'email' => 'email|required|string|unique:admins,email',
             'password' => 'required|string|confirmed'
         ]);
 
