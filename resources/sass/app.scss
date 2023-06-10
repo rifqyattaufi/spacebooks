@@ -9,7 +9,8 @@
 
 // $theme-colors: map-merge($theme-colors, $custom-colors);
 .auth {
-    height: 100%;
+    height: 100vh;
+    width: 100%;
     background: linear-gradient(to right,
             white 0%,
             white 50%,
@@ -17,6 +18,18 @@
             #264D4B 100%);
 }
 
-.full-height {
-    height: 100%;
+@media (max-width: 768px) {
+    .auth {
+        background: white 100%;
+    }
+    .right-side {
+        display: none !important;
+    }
+    .right-side-a {
+        display: none !important;
+    }
 }
+
+// .full-height {
+//     height: 100%;
+// }

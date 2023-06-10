@@ -22,9 +22,9 @@
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 
-<body class="auth">
+<body class="auth d-flex justify-content-center align-items-center">
     <div id="app">
-        <main class="py-4">
+        <main>
             @yield('content')
         </main>
     </div>
