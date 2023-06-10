@@ -103,6 +103,6 @@
                 </div>
             </div>
         </div>
-        <button type="submit" class="btn btn-secondary">Submit</button>
+        <button type="submit" class="btn btn-secondary text-white">Submit</button>
     </form>
 @endsection

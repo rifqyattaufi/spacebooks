@@ -6,10 +6,10 @@
             <div class="col-lg-12 p-5">
                 @if (!isset($data))
                     Belum bikin spaces kamu? ayo bikin sekarang
-                    <a href="{{ route('admin.spaces.add') }}" class="btn btn-secondary">Buat</a>
+                    <a href="{{ route('admin.spaces.add') }}" class="ms-2 text-white btn btn-secondary">Buat</a>
                 @else
                     <h1 class="text-left fw-bold">{{ $data->name }}</h1>
-                    <h6 class="fw-normal lh-lg mb-4 text-wrap" style="width: 80%;">{{ $data->description }}</h6>
+                    <h6 class="lh-lg mb-4 text-wrap" style="width: 80%;">{{ $data->description }}</h6>
 
                     <div class="row d-flex justify-content-between">
                         <div class="col-lg-6 d-flex justify-content-start">
@@ -158,7 +158,7 @@
                                     <div class="fw-bold">Edit Fasilitas</div>
                                 </div>
                                 <div class="col-2 me-4">
-                                    <div class="btn btn-secondary" onclick="addInput()">Tambah</div>
+                                    <div class="btn btn-secondary text-white" onclick="addInput()">Tambah</div>
                                 </div>
                             </div>
                             <form action="javascript:void(0)" id="facilityForm" name="facilityForm" class="form-horizontal"
