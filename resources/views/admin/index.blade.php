@@ -155,8 +155,8 @@
                                 <div class="col">
                                     <div class="fw-bold">Edit Fasilitas</div>
                                 </div>
-                                <div class="col-2 me-4">
-                                    <div class="btn btn-secondary text-white" onclick="addInput()">Tambah</div>
+                                <div class="col-2 mx-4">
+                                    <img src="{{ asset('assets/images/plusIcon.png') }}" onclick="addInput()" alt="Add" width="30" class="mx-2">
                                 </div>
                             </div>
                             <form action="javascript:void(0)" id="facilityForm" name="facilityForm" class="form-horizontal"
