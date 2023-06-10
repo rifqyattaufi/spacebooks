@@ -9,7 +9,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
-    
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -99,16 +99,16 @@
                             id="menu">
                             <li class="nav-item">
                                 <a href="{{ route('admin.index') }}" class="nav-link align-middle px-0 text-light">
-                                    <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Home</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link align-middle px-0 text-light">
                                     <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Dashboard</span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link align-middle px-0 text-light">
+                                <a href="{{ route('admin.jadwal') }}" class="nav-link align-middle px-0 text-light">
+                                    <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Jadwal</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.gallery') }}" class="nav-link align-middle px-0 text-light">
                                     <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Galery</span>
                                 </a>
                             </li>

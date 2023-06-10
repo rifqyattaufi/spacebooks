@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Facility;
+use App\Models\Gallery;
 use Illuminate\Http\Request;
 use App\Models\Space;
 
@@ -84,5 +85,33 @@ class AdminController extends Controller
         }
 
         return Response()->json(['success' => 'Facility updated successfully']);
+    }
+
+    public function gallery()
+    {
+        $data = Space::where('admin_id', auth()->user()->id)->first();
+        $image = Gallery::where('space_id', $data->id)->get();
+
+
+        return view('admin.gallery', compact('data', 'image'));
+    }
+
+    public function addGallery(Request $request)
+    {
+
+        $validatedData = $request->validate([
+            'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+        ]);
+
+        $imageName = date('d_m_y') . '_' . time() . '_' . $request->file('image')->getClientOriginalName();
+
+        $request->image->move(public_path('images'), $imageName);
+
+        Gallery::create([
+            'space_id' => $request->space_id,
+            'image' => $imageName,
+        ]);
+
+        return response()->json(['success' => 'Image added successfully']);
     }
 }
