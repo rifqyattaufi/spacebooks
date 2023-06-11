@@ -80,7 +80,24 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="successModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="container">
+                        Selamat Data Anda telah Disimpan
+                    </div>
+                    <button class="btn btn-secondary text-light" onclick="hideSuccess()">Selesai</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 @yield('script')
+<script>
+    function hideSuccess() {
+        $('#successModal').modal('hide');
+    }
+</script>
 
 </html>

@@ -81,6 +81,22 @@
                             <h6 class="m-0">{{ $data->capacity }} Orang</h6>
                         </div>
                     </div>
+                    <div class="row mt-4 d-flex justify-content-between">
+                        <div class="col-lg d-flex justify-content-start">
+                            <h3 class="fw-bold mb-3">Contact</h3>
+                        </div>
+                        <div class="col-lg-6 d-flex justify-content-center">
+                            <a onclick="editPhone({{ $data->id }})" data-toggle="tooltip">
+                                <img src="{{ asset('assets/images/editIcon.png') }}" alt="Edit" width="30"
+                                    class="me-2 hover_tunjuk">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row d-flex align-items-center">
+                        <div class="col d-flex align-items-center">
+                            <h6 class="mt-2">{{ $data->phone }}</h6>
+                        </div>
+                    </div>
 
                     <div class="row mt-4 d-flex justify-content-between">
                         <div class="col-lg-6 d-flex justify-content-start">
@@ -126,8 +142,8 @@
                             </div>
                             <div class="form-group mt-2">
                                 <div class="col-sm-12">
-                                    <input type="number" class="form-control" id="coworking_price" name="coworking_price"
-                                        placeholder="Rp. 50.000">
+                                    <input type="number" class="form-control" id="coworking_price"
+                                        name="coworking_price" placeholder="Rp. 50.000">
                                 </div>
                             </div>
                             <div class="form-group mt-2">
@@ -146,46 +162,6 @@
             </div>
         </div>
     </div>
-    <!-- end bootstrap model -->
-
-    {{-- <!-- boostrap price modal -->
-    <div class="modal fade" id="facilityModal" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-body p-4">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col">
-                                <div class="fw-bold">Edit Fasilitas</div>
-                            </div>
-                            <div class="col-2 mx-4">
-                                <img src="{{ asset('assets/images/plusIcon.png') }}" onclick="addInput()" alt="Add"
-                                    width="30" class="mx-2">
-                            </div>
-                        </div>
-                        <div class="form-group mt-2">
-                            <div class="col-sm-12">
-                                <input type="number" class="form-control" id="coworking_price" name="coworking_price"
-                                    placeholder="Rp. 50.000">
-                            </div>
-                        </div>
-                        <div class="form-group mt-2">
-                            <div class="col-sm-12">
-                                <input type="number" class="form-control" id="meeting_price" name="meeting_price"
-                                    placeholder="Rp. 100.000">
-                            </div>
-                        </div>
-                        <div class="col mt-2">
-                            <button type="submit" class="btn btn-secondary text-white" id="btn-save">Save changes
-                            </button>
-                        </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- end bootstrap model --> --}}
 
     <!-- boostrap price modal -->
     <div class="modal fade" id="facilityModal" aria-hidden="true">
@@ -234,6 +210,40 @@
         </div>
     </div>
     <!-- end bootstrap model -->
+
+    <div class="modal fade" id="phoneModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body p-4">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <div class="fw-bold">Edit Contact</div>
+                            </div>
+                        </div>
+                        <form action="javascript:void(0)" id="phoneForm" name="phoneForm" class="form-horizontal"
+                            method="POST" enctype="multipart/form-data">
+                            <input type="hidden" name="space_id" id="space_id" value="{{ $data->id }}">
+                            <div class="form-group mt-2" id="phoneInput">
+                                <div class="col-sm-12 mt-2">
+                                    <input type="text" class="form-control" id="phone" name="phone"
+                                        placeholder="Masukkan Contact" value="{{ $data->phone }}">
+                                    <div id="validationPhone" class="invalid-feedback" style="display: block">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col mt-2">
+                                <button type="submit" class="btn btn-secondary text-white" id="btn-save">Save
+                                    changes
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     @endif
 @endsection
 
@@ -247,6 +257,33 @@
             });
             $('#meeting_price').hide();
         })
+
+        function editPhone($id) {
+            $('#phoneModal').modal('show');
+            $('#phone').val('{{ $data->phone }}');
+            $('#id').val($id);
+        }
+
+        $('#phoneForm').submit(function(e) {
+            e.preventDefault();
+            var formData = new FormData(this);
+            $.ajax({
+                type: 'POST',
+                url: "{{ route('admin.spaces.phone.update') }}",
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: (data) => {
+                    this.reset();
+                    $('#phoneModal').modal('hide');
+                    $('#successModal').modal('show');
+                },
+                error: function(data) {
+                    $('#validationPhone').html(data['responseText']);
+                }
+            });
+        });
 
         function editPrice(id) {
             $.ajax({
@@ -286,7 +323,7 @@
                 processData: false,
                 success: (data) => {
                     $('#priceModal').modal('hide');
-                    location.reload();
+                    $('#successModal').modal('show');
                 },
                 error: function(data) {
                     console.log(data);
@@ -316,12 +353,16 @@
                 processData: false,
                 success: (data) => {
                     $('#facilityModal').modal('hide');
-                    location.reload();
+                    $('#successModal').modal('show');
                 },
                 error: function(data) {
                     console.log(data['responseText']);
                 }
             });
+        });
+
+        $('#successModal').on('hidden.bs.modal', function() {
+            location.reload();
         });
     </script>
 @endsection

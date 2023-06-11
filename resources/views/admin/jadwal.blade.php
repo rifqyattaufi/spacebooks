@@ -4,8 +4,13 @@
     <div class="container">
         <div class="row p-4">
             <div class="col-lg-12 d-flex justify-content-evenly">
-                <a class="btn btn-secondary text-light ps-5 pe-5" href="#">Coworking Space</a>
-                <a class="btn btn-outline-secondary ps-5 pe-5" href="#">Meeting Room</a>
+                @if (request()->get('type') == 'meeting')
+                    <a class="btn btn-outline-secondary ps-5 pe-5" href="?type=coworking">Coworking Space</a>
+                    <a class="btn btn-secondary text-light ps-5 pe-5" href="?type=meeting">Meeting Room</a>
+                @else
+                    <a class="btn btn-secondary text-light ps-5 pe-5" href="?type=coworking">Coworking Space</a>
+                    <a class="btn btn-outline-secondary ps-5 pe-5" href="?type=meeting">Meeting Room</a>
+                @endif
             </div>
             <div class="col-lg-12 d-flex justify-content-center my-4">
                 <img src="{{ asset('assets/images/warn.png') }}" alt="warning" width="15" class="me-4">
@@ -26,7 +31,7 @@
                             @for ($j = Carbon\Carbon::parse($data->open_time); $j <= Carbon\Carbon::parse($data->close_time); $j->addHour())
                                 <div class="d-grid">
                                     <button
-                                        class="btn btn-sm btn-success mb-2 rounded @if (in_array($j->format('H:i:s'), $jadwal[$i])) disabled @endif"
+                                        class="btn btn-sm mb-2 rounded @if (in_array($j->format('H:i:s'), $jadwal[$i])) btn-danger disabled @else btn-success @endif"
                                         onclick="showForm('{{ $j->format('H:i:s') }}','{{ $week[$i] }}','{{ $date[$i] }}')">
                                         {{ $j->format('H:i') }}
                                     </button>
@@ -37,13 +42,45 @@
                     @endfor
                 </div>
             </div>
-            <div class="col-lg-12 mt-4 d-flex justify-content-center">
-                <h6 class="mt-2">
-                    <a href="" class="btn btn-sm btn-success text-success rounded my-0">--</a>
-                    Tersedia
-                    <a href="" class="ms-5 btn btn-sm btn-danger text-danger rounded my-0">--</a>
-                    Tidak Tersedia
-                </h6>
+        </div>
+        <div class="col-lg-12 mt-4 d-flex justify-content-center">
+            <h6 class="mt-2">
+                <a href="" class="btn btn-sm btn-success text-success rounded my-0">--</a>
+                Tersedia
+                <a href="" class="ms-5 btn btn-sm btn-danger text-danger disabled rounded my-0">--</a>
+                Tidak Tersedia
+            </h6>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="orderModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="fw-bold">Buat Reservasi</div>
+                        <form action="javascript:void(0)" id="orderForm" name="orderForm" class="form-horizontal"
+                            method="POST" enctype="multipart/form-data">
+                            <input type="hidden" name="space_id" id="space_id" value="{{ $data->id }}">
+                            <input type="hidden" name="reserve_time" id="reserve_time">
+                            <input type="hidden" name="reserve_date" id="reserve_date">
+                            <input type="hidden" name="type" id="type">
+                            <div class="col">
+                                <label for="" class="form-label">Email Pemesan</label>
+                                <input type="email" name="email" id="email" class="form-control">
+                                <div id="validationEmail" class="invalid-feedback" style="display: block">
+
+                                </div>
+                            </div>
+
+                            <div class="col mt-2">
+                                <button type="submit" class="btn btn-secondary text-white" id="btn-save">Buat
+                                    Reservasi</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -62,25 +99,12 @@
             });
         })
 
-        function getJadwal(date, time) {
-            $.ajax({
-                type: 'POST',
-                url: "{{-- route('admin.jadwal.get') --}}",
-                data: {
-                    space_id: {{ $data->id }},
-                    reserve_date: date,
-                    reserve_time: time
-                },
-                success: (data) => {
-                    jadwal = data['responseText'];
-                },
-                error: function(data) {
-                    console.log(data);
-                }
-            });
-        }
-
         function showForm(time, week, date) {
+            if ('{{ request()->get('type') }}' == 'meeting') {
+                $('#type').val(1);
+            } else {
+                $('#type').val(0);
+            }
             $('#reserve_time').val(time);
             $('#reserve_date').val(date);
             $('#orderModal').modal('show');
@@ -99,8 +123,7 @@
                 success: (data) => {
                     this.reset();
                     $('#orderModal').modal('hide');
-                    alert('Reservasi berhasil dibuat');
-                    location.reload();
+                    $('#successModal').modal('show');
                 },
                 error: function(data) {
                     $('#validationEmail').html(data['responseText']);
@@ -110,6 +133,10 @@
 
         $('#orderModal').on('hidden.bs.modal', function() {
             $('#validationEmail').html('');
+        })
+
+        $('#successModal').on('hidden.bs.modal', function() {
+            location.reload();
         })
     </script>
 @endsection

@@ -6,10 +6,8 @@
         @foreach ($image as $i)
             <div class="col-md-4 mt-3">
                 <div class="card">
-                    <img src="{{ url('/images/', $i->image) }}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        {{-- <a href="{{ route('admin.gallery.delete', $d->id) }}" class="btn btn-danger text-light">Hapus</a> --}}
-                    </div>
+                    <img src="{{ url('/images/', $i->image) }}" class="card-img-top"
+                        style="aspect-ratio:16/9; object-fit:cover;">
                 </div>
             </div>
         @endforeach
@@ -22,7 +20,7 @@
                 <div class="modal-body">
                     <div class="container">
                         <div class="fw-bold">Unggah Foto</div>
-                        <img id="preview" src="" alt="your image" class="mt-3" style="display:none;" />
+                        <img id="preview" src="" alt="your image" class="mt-3" style="display:none" />
                         <form action="javascript:void(0)" id="imageForm" name="imageForm" class="form-horizontal"
                             method="POST" enctype="multipart/form-data">
                             <input type="hidden" name="space_id" id="space_id" value="{{ $data->id }}">
@@ -81,12 +79,16 @@
                 processData: false,
                 success: (data) => {
                     $('#imageModal').modal('hide');
-                    location.reload();
+                    $('#successModal').modal('show');
                 },
                 error: function(data) {
                     console.log(data);
                 }
             });
         });
+
+        $('#successModal').on('hidden.bs.modal', function() {
+            location.reload();
+        })
     </script>
 @endsection

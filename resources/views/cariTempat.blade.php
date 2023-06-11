@@ -58,7 +58,9 @@
                                 <h5 class="card-title">{{ $s->name }}</h5>
 
                                 <p class="card-text">
-                                    @if ($s->coworking_price != null)
+                                    @if (request()->get('type') == 'meeting')
+                                        Meeting Room
+                                    @else
                                         Coworking Space
                                     @endif
                                 </p>
@@ -88,7 +90,7 @@
                                 </div>
 
                                 <div class="d-grid gap-2">
-                                    <a href="{{ route('detailtempat', $s->id) }}"
+                                    <a href="{{ route('detailtempat', [$s->id, request()->get('type')]) }}"
                                         class="btn btn-secondary text-white mt-3">Detail</a>
                                 </div>
                             </div>

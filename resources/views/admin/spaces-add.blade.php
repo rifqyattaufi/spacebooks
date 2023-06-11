@@ -34,6 +34,16 @@
             @enderror
         </div>
         <div class="mb-3">
+            <label for="" class="form-label">Phone</label>
+            <input type="text" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone"
+                value="{{ old('phone') }}">
+            @error('phone')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
+        </div>
+        <div class="mb-3">
             <label for="" class="form-label">Capacity</label>
             <input type="number" class="form-control @error('capacity') is-invalid @enderror" id="capacity"
                 name="capacity" value="{{ old('capacity') }}">

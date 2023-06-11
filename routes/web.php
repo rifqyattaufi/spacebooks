@@ -40,6 +40,7 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
     Route::post('/spaces/price', [AdminController::class, 'getPrice'])->name('admin.spaces.price');
     Route::post('/spaces/price/update', [AdminController::class, 'updatePrice'])->name('admin.spaces.price.update');
     Route::post('/spaces/facility/update', [AdminController::class, 'updateFacility'])->name('admin.spaces.facility.update');
+    Route::post('/spaces/phone/update', [AdminController::class, 'updatePhone'])->name('admin.spaces.phone.update');
 
     Route::get('/gallery', [AdminController::class, 'gallery'])->name('admin.gallery');
     Route::post('/gallery/add', [AdminController::class, 'addGallery'])->name('admin.gallery.add');
@@ -53,5 +54,5 @@ Route::get('/', [UserController::class, 'index'])->name('home');
 
 Route::middleware('auth')->group(function () {
     Route::get('/caritempat', [UserController::class, 'cariTempat'])->name('caritempat');
-    Route::get('detailtempat/{id}', [UserController::class, 'detailTempat'])->name('detailtempat');
+    Route::get('detailtempat/{id}/{type?}', [UserController::class, 'detailTempat'])->name('detailtempat');
 });

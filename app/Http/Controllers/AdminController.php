@@ -10,6 +10,7 @@ use App\Models\Space;
 use App\Models\User;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
+use Illuminate\Support\Facades\Validator;
 
 class AdminController extends Controller
 {
@@ -21,7 +22,6 @@ class AdminController extends Controller
             return view('admin.index', compact('data', 'facility'));
         }
         return view('admin.index', compact('data'));
-
     }
 
     public function addSpace()
@@ -34,6 +34,7 @@ class AdminController extends Controller
         $request->validate([
             'name' => 'required',
             'address' => 'required',
+            'phone' => 'required|numeric|digits_between:10,14',
             'capacity' => 'required',
             'description' => 'required',
             'open_day' => 'required',
@@ -45,6 +46,7 @@ class AdminController extends Controller
         Space::create([
             'name' => $request->name,
             'address' => $request->address,
+            'phone' => $request->phone,
             'capacity' => $request->capacity,
             'description' => $request->description,
             'open_day' => $request->open_day,
@@ -94,6 +96,24 @@ class AdminController extends Controller
         return Response()->json(['success' => 'Facility updated successfully']);
     }
 
+    public function updatePhone(Request $request)
+    {
+        $rules = [
+            'phone' => 'required|numeric|digits_between:10,14',
+        ];
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return response()->json($validator->getMessageBag()->first(), 400);
+        }
+
+        Space::where('id', $request->space_id)->update([
+            'phone' => $request->phone,
+        ]);
+
+        return Response()->json(['success' => 'Phone updated successfully']);
+    }
+
     public function gallery()
     {
         $data = Space::where('admin_id', auth()->user()->id)->first();
@@ -122,7 +142,7 @@ class AdminController extends Controller
         return response()->json(['success' => 'Image added successfully']);
     }
 
-    public function jadwal()
+    public function jadwal(Request $request)
     {
         $data = Space::where('admin_id', auth()->user()->id)->first();
         $week = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
@@ -142,7 +162,14 @@ class AdminController extends Controller
         }
         $jadwal = [];
         foreach ($date as $key => $d) {
-            $jadwal[$key] = Reservation::where('space_id', $data->id)->where('reserve_date', $d)->pluck('reserve_time')->toArray();
+            $jadwal[$key] = Reservation::where('space_id', $data->id)
+                ->when($request->type === 'meeting', function ($query) {
+                    return $query->where('type', 1);
+                })
+                ->unless($request->type === 'meeting', function ($query) {
+                    return $query->where('type', 0);
+                })
+                ->where('reserve_date', $d)->pluck('reserve_time')->toArray();
         }
 
         return view('admin.jadwal', compact('data', 'week', 'start', 'end', 'date', 'jadwal'));
@@ -156,11 +183,10 @@ class AdminController extends Controller
             return response()->json('User not found', 404);
         }
 
-        // return response()->json($request, 404);
-
         Reservation::create([
             'reserve_time' => $request->reserve_time,
             'reserve_date' => $request->reserve_date,
+            'type' => $request->type,
             'user_id' => $user->id,
             'space_id' => $request->space_id,
         ]);
