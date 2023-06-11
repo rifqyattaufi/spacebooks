@@ -63,7 +63,8 @@
                     Tidak Tersedia
                 </h4>
                 <div class="col-lg-12 mt-4 d-flex justify-content-center">
-                    <a href="#" class="btn btn-secondary ps-5 pe-5 text-white rounded">Reservasi</a>
+                    <a href="#" class="btn btn-secondary ps-5 pe-5 text-white rounded"
+                        onclick="reserveModal()">Reservasi</a>
                 </div>
             </div>
         </div>
@@ -128,7 +129,7 @@
                         @guest
                         @else
                             <img src="{{ asset('assets/images/addIcon.png') }}" alt="Review Icon" width="40"
-                                class="ms-2 hover_tunjuk" onclick="">
+                                class="ms-2 hover_tunjuk" onclick="ratingModal()">
                         @endguest
                     </h3>
                 </div>
@@ -161,4 +162,74 @@
             </div>
         </div>
     </section>
+
+    <div class="modal fade" id="reserveModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="row d-flex justify-content-center text-center">
+                            <div class="col mb-4">
+                                <img src="{{ asset('assets/images/logoWA.png') }}" alt="WhatsApp Icon" class="img-fluid"
+                                    width="40%">
+                            </div>
+                            <h5 class="mb-2">{{ $space->phone }}</h5>
+                            <h5 class="mb-2">Admin {{ $space->phone }}</h5>
+                            <h5 class="mb-3">Silakan melakukan pemesanan di WA</h5>
+                            <div>
+                                <a href="https://wa.me/{{ $space->phone }}"
+                                    class="btn btn-secondary text-white px-5">Hubungi
+                                    Admin</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="ratingModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col mb-1">
+                                <h1 class="text-left fw-bold">Rating Anda</h1>
+                            </div>
+                        </div>
+                        <form action="">
+                            <div class="col-3 mb-2">
+                                <select class="form-select" aria-label="Default select example" name="">
+                                    <option value="5">5</option>
+                                    <option value="4">4</option>
+                                    <option value="3">3</option>
+                                    <option value="2">2</option>
+                                    <option value="1">1</option>
+                                </select>
+                            </div>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                            <div class="mt-2">
+                                <a href="https://wa.me/{{ $space->phone }}"
+                                    class="btn btn-secondary text-white px-5">Hubungi
+                                    Admin</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+
+@section('script')
+    <script>
+        function reserveModal() {
+            $('#reserveModal').modal('show');
+        }
+
+        function ratingModal() {
+            $('#ratingModal').modal('show');
+        }
+    </script>
 @endsection
