@@ -209,7 +209,7 @@
                                 </select>
                             </div>
                             <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                            <div class="mt-2">
+                            <div class="mt-2 d-flex justify-content-center">
                                 <a href="https://wa.me/{{ $space->phone }}"
                                     class="btn btn-secondary text-white px-5">Hubungi
                                     Admin</a>
