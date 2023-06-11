@@ -24,8 +24,7 @@
                 @foreach ($data as $d)
                     <div class="col-lg-4">
                         <div class="card mb-4 shadow p-3">
-
-                            <img src="{{ asset('assets/images/image1.png') }}" class="card-img-top" alt="Card Image">
+                            <img src="{{ url('/images/', $d->image) }}" class="card-img-top" alt="Card Image" style="object-fit: cover; aspect-ratio: 16/9">
                             <div class="card-body">
 
                                 <h5 class="card-title">{{ $d->name }}</h5>
@@ -52,17 +51,18 @@
                                     @elseif ($d->coworking_price != null)
                                         Rp.{{ number_format($d->coworking_price) }}/h
                                     @elseif ($d->meeting_price != null)
-                                        Rp.{{ number_format($d->meeting_price); }}/h
+                                        Rp.{{ number_format($d->meeting_price) }}/h
                                     @endif
                                 </p>
 
                                 <div class="rating">
-                                    <span class="text-warning">&#9733;</span>
-                                    <span class="text-warning">&#9733;</span>
-                                    <span class="text-warning">&#9733;</span>
-                                    <span class="text-muted">&#9733;</span>
-                                    <span class="text-muted">&#9733;</span>
-                                    <span class="text-muted rating-text mr-2">{{$d->count}} reviews</span>
+                                    @for ($i = 0; $i < $d->rating; $i++)
+                                        <span class="text-warning">&#9733;</span>
+                                    @endfor
+                                    @for ($i = $d->rating; $i < 5; $i++)
+                                        <span class="text-muted">&#9733;</span>
+                                    @endfor
+                                    <span class="text-muted rating-text mr-2">{{ $d->count }} reviews</span>
                                 </div>
 
                                 <div class="d-grid gap-2">
@@ -72,64 +72,6 @@
                         </div>
                     </div>
                 @endforeach
-
-
-
-                {{-- <div class="col-lg-4">
-                    <div class="card mb-4 shadow p-3">
-
-                        <img src="{{ asset('assets/images/image2.png') }}" class="card-img-top" alt="Card Image">
-                        <div class="card-body">
-
-                            <h5 class="card-title">Ngalup Co</h5>
-
-                            <p class="card-text">Coworking Space</p>
-
-                            <p class="card-text">Rp.50rb - 150rb/h</p>
-
-                            <div class="rating">
-                                <span class="text-warning">&#9733;</span>
-                                <span class="text-warning">&#9733;</span>
-                                <span class="text-warning">&#9733;</span>
-                                <span class="text-warning">&#9733;</span>
-                                <span class="text-muted">&#9733;</span>
-                                <span class="text-muted rating-text mr-2">322 reviews</span>
-                            </div>
-
-                            <div class="d-grid gap-2">
-                                <a href="#" class="btn btn-secondary text-white mt-3">Detail</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4">
-                    <div class="card mb-4 shadow p-3">
-
-                        <img src="{{ asset('assets/images/image3.png') }}" class="card-img-top" alt="Card Image">
-                        <div class="card-body">
-
-                            <h5 class="card-title">Ruang Milenial</h5>
-
-                            <p class="card-text">Coworking Space</p>
-
-                            <p class="card-text">Rp.50rb - 150rb/h</p>
-
-                            <div class="rating">
-                                <span class="text-warning">&#9733;</span>
-                                <span class="text-warning">&#9733;</span>
-                                <span class="text-warning">&#9733;</span>
-                                <span class="text-warning">&#9733;</span>
-                                <span class="text-warning">&#9733;</span>
-                                <span class="text-muted rating-text mr-2">322 reviews</span>
-                            </div>
-
-                            <div class="d-grid gap-2">
-                                <a href="#" class="btn btn-secondary text-white mt-3">Detail</a>
-                            </div>
-                        </div>
-                    </div>
-                </div> --}}
             </div>
         </div>
     </section>
@@ -221,7 +163,34 @@
         <div class="container">
             <h2 class="text-center mb-5">Apa kata mereka tentang SpaceBook?</h2>
             <div class="row mt-5">
-                <div class="col-md-4 mb-4">
+                @foreach ($reviews as $r)
+                    <div class="col-md-4 mb-4">
+                        <div class="card bg-white text-primary">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-4">
+                                        <img src="{{ asset('assets/images/men.png') }}" alt="Profile Picture"
+                                            class="rounded-circle mb-3" width="80" height="80">
+                                    </div>
+                                    <div class="col-8">
+                                        <h5 class="card-title">{{ $r->name }}</h5>
+                                        <div class="rating-stars">
+                                            {{-- <span class="text-secondary">&#9733;&#9733;&#9733;&#9733;&#9734;</span> --}}
+                                            @for ($i = 0; $i < $r->rating; $i++)
+                                                <span class="text-secondary">&#9733;</span>
+                                            @endfor
+                                            @for ($i = $r->rating; $i < 5; $i++)
+                                                <span class="text-muted">&#9733;</span>
+                                            @endfor
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="card-text mt-3">“{{ $r->comment }}”</p>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+                {{-- <div class="col-md-4 mb-4">
                     <div class="card bg-white text-primary">
                         <div class="card-body">
                             <div class="row align-items-center">
@@ -260,27 +229,7 @@
                                 sesuai kebutuhan”</p>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="card bg-white text-primary">
-                        <div class="card-body">
-                            <div class="row align-items-center">
-                                <div class="col-4">
-                                    <img src="{{ asset('assets/images/men.png') }}" alt="Profile Picture"
-                                        class="rounded-circle mb-3" width="80" height="80">
-                                </div>
-                                <div class="col-8">
-                                    <h5 class="card-title">John Doe</h5>
-                                    <div class="rating-stars">
-                                        <span class="text-secondary">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <p class="card-text mt-3">“Beryukur banget nemu website ini, jadi gampang mau booking tempat
-                                sesuai kebutuhan”</p>
-                        </div>
-                    </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </section>
