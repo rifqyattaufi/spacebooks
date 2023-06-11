@@ -87,7 +87,7 @@
                                         <li>
                                             <hr class="dropdown-divider">
                                         </li>
-                                        <li><a class="dropdown-item" href="#">Bookingan Saya</a></li>
+                                        {{-- <li><a class="dropdown-item" href="#">Bookingan Saya</a></li> --}}
                                         <li><a class="dropdown-item" href="{{route('logout')}}">Logout</a></li>
                                     </ul>
                                 </div>

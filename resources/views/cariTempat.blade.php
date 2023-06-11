@@ -21,16 +21,25 @@
             <p>Menampilkan {{ count($spaces) }} hasil</p>
             <div class="row mb-5 d-flex justify-content-between align-items-center">
                 <div class="col-lg-8">
-                    <a class="btn btn-secondary text-light ps-5 pe-5" href="#">Coworking Space</a>
-                    <a class="btn btn-outline-secondary ps-5 pe-5" href="#">Meeting Room</a>
+                    @if (request()->get('type') == 'meeting')
+                        <a class="btn btn-outline-secondary ps-5 pe-5" href="?type=coworking">Coworking Space</a>
+                        <a class="btn btn-secondary text-light ps-5 pe-5" href="?type=meeting">Meeting Room</a>
+                    @else
+                        <a class="btn btn-secondary text-light ps-5 pe-5" href="?type=coworking">Coworking Space</a>
+                        <a class="btn btn-outline-secondary ps-5 pe-5" href="?type=meeting">Meeting Room</a>
+                    @endif
                 </div>
                 <div class="col-lg-4">
-                    <div class="input-group">
-                        <span class="input-group-text">
-                            <img src="{{ asset('assets/images/searchIcon.png') }}" alt="Search" width="20">
-                        </span>
-                        <input type="text" class="form-control" style="border-left: none;" placeholder="Search">
-                    </div>
+                    <form method="GET">
+                        <div class="input-group">
+                            <button class="input-group-text" type="submit">
+                                <img src="{{ asset('assets/images/searchIcon.png') }}" alt="Search" width="20">
+                            </button>
+                            <input type="hidden" name="type" value="{{ request()->get('type') }}">
+                            <input type="text" class="form-control" style="border-left: none;" placeholder="Search"
+                                name="search" value="{{ request()->get('search') }}">
+                        </div>
+                    </form>
                 </div>
             </div>
             <div class="row">
@@ -81,7 +90,9 @@
                         </div>
                     </div>
                 @endforeach
-
+                @if (count($spaces) == 0)
+                    Space yang anda cari tidak ditemukan
+                @endif
                 <!--pagination from controller-->
                 <div class="col-md-12">
                     {{ $spaces->links('vendor.pagination.custom') }}

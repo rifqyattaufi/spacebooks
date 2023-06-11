@@ -6,6 +6,7 @@ use App\Models\Gallery;
 use App\Models\Reservation;
 use App\Models\Review;
 use App\Models\Space;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -47,9 +48,19 @@ class UserController extends Controller
         return view('welcome', compact('data', 'reviews'));
     }
 
-    function cariTempat()
+    function cariTempat(Request $request)
     {
-        $spaces = Space::whereNotNull('coworking_price')->inRandomOrder()->paginate(9);
+        $spaces = Space::when($request->type === 'meeting', function ($query) {
+            return $query->whereNotNull('meeting_price');
+        })
+            ->unless($request->type === 'meeting', function ($query) {
+                return $query->whereNotNull('coworking_price');
+            })
+            ->when($request->search, function ($query) use ($request) {
+                return $query->where('name', 'like', "%{$request->search}%");
+            })
+            ->inRandomOrder()
+            ->paginate(9);
         foreach ($spaces as $s) {
             $count = Review::where('space_id', $s->id)->count();
             $image = Gallery::where('space_id', $s->id)->first();

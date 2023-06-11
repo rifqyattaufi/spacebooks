@@ -27,7 +27,7 @@
                                 alt="Card Image">
                             <div class="card-body">
                                 <h5 class="card-title">Coworking Space</h5>
-                                <a href="{{ route('caritempat') }}" class="stretched-link"></a>
+                                <a href="{{ route('caritempat') }}?type=coworking" class="stretched-link"></a>
                             </div>
                         </div>
                     </div>
@@ -36,7 +36,7 @@
                             <img src="{{ asset('assets/images/meetingroom.png') }}" class="card-img-top" alt="Card Image">
                             <div class="card-body">
                                 <h5 class="card-title">Meeting Room</h5>
-                                <a href="{{ route('caritempat') }}" class="stretched-link"></a>
+                                <a href="{{ route('caritempat') }}?type=meeting" class="stretched-link"></a>
                             </div>
                         </div>
                     </div>
@@ -94,7 +94,7 @@
                                     </div>
 
                                     <div class="d-grid gap-2">
-                                        <a href="{{ '/detailtempat' }}"
+                                        <a href="{{ route('detailtempat', $d->id) }}"
                                             class="btn btn-secondary text-white mt-3">Detail</a>
                                     </div>
                                 </div>

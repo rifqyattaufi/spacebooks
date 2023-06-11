@@ -67,7 +67,8 @@
                                 </div>
 
                                 <div class="d-grid gap-2">
-                                    <a href="{{ '/detailtempat' }}" class="btn btn-secondary text-white mt-3">Detail</a>
+                                    <a href="{{ route('detailtempat', $d->id) }}"
+                                        class="btn btn-secondary text-white mt-3">Detail</a>
                                 </div>
                             </div>
                         </div>
