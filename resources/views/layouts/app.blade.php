@@ -191,4 +191,6 @@
     }
 </script>
 
+@yield('script')
+
 </html>
