@@ -191,7 +191,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <p class="card-text mt-3">“{{ $r->comment }}”</p>
+                                <p class="card-text mt-3 text-truncate">“{{ $r->comment }}”</p>
                             </div>
                         </div>
                     </div>

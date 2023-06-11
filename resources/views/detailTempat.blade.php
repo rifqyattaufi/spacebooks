@@ -213,8 +213,7 @@
                             </div>
                             <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="comment" id="comment"></textarea>
                             <div class="mt-2">
-                                <button type="submit"
-                                    class="btn btn-secondary text-white px-5">Kirim</button>
+                                <button type="submit" class="btn btn-secondary text-white px-5">Kirim</button>
                             </div>
                         </form>
                     </div>
@@ -246,6 +245,8 @@
                 success: function(data) {
                     if (data == 1) {
                         alert('Anda sudah memberikan rating');
+                    } else if (data == 2) {
+                        alert('Anda belum memiliki reservasi');
                     } else {
                         $('#ratingModal').modal('show');
                     }

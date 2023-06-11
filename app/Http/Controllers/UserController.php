@@ -130,8 +130,12 @@ class UserController extends Controller
 
     function checkRating($id)
     {
+        $pesanan = Reservation::where('user_id', auth()->user()->id)->where('space_id', $id)->first();
         $review = Review::where('user_id', auth()->user()->id)->where('space_id', $id)->first();
 
+        if (!$pesanan) {
+            return response()->json([2]);
+        } else
         if ($review) {
             return response()->json([1]);
         }

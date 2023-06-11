@@ -21,6 +21,7 @@ class AdminController extends Controller
             $facility = Facility::where('space_id', $data->id)->get();
             return view('admin.index', compact('data', 'facility'));
         }
+
         return view('admin.index', compact('data'));
     }
 
