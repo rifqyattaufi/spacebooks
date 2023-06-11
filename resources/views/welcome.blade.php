@@ -24,8 +24,13 @@
                 @foreach ($data as $d)
                     <div class="col-lg-4">
                         <div class="card mb-4 shadow p-3">
-                            <img src="{{ url('/images/', $d->image) }}" class="card-img-top" alt="Card Image"
-                                style="object-fit: cover; aspect-ratio: 16/9">
+                            @if ($d->image)
+                                <img src="{{ url('/images/', $d->image) }}" class="card-img-top"
+                                    alt="Card Image"style="object-fit: cover; aspect-ratio: 16/9">
+                            @else
+                                <img src="{{ asset('assets/images/placeholder.png') }}" class="card-img-top"
+                                    alt="Card Image"style="object-fit: cover; aspect-ratio: 16/9">
+                            @endif
                             <div class="card-body">
 
                                 <h5 class="card-title">{{ $d->name }}</h5>
