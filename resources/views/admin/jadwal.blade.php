@@ -9,30 +9,33 @@
             </div>
             <div class="col-lg-12 d-flex justify-content-center my-4">
                 <img src="{{ asset('assets/images/warn.png') }}" alt="warning" width="15" class="me-4">
-                    <h6 class="m-0">Klik jam untuk mencatat reservasi terbaru pelanggan</h6>
-                    <img src="{{ asset('assets/images/warn.png') }}" alt="warning" width="15" class="ms-4">
+                <h6 class="m-0">Klik jam untuk mencatat reservasi terbaru pelanggan</h6>
+                <img src="{{ asset('assets/images/warn.png') }}" alt="warning" width="15" class="ms-4">
             </div>
-            <div class="col-lg-12 d-flex justify-content-center">
+            <div class="col-12 d-flex justify-content-center">
                 <div class="row align-items-center justify-content-center">
                     @for ($i = $start; $i <= $end; $i++)
-                    <div class="col-lg-1 text-center ms-5">
-                        <h5>
-                            {{ $week[$i] }}
-                        </h5>
-                        <h6>
-                            {{ $date[$i] }}
-                        </h6>
+                        <div class="col-1 text-center ms-5">
+                            <h5>
+                                {{ $week[$i] }}
+                            </h5>
+                            <h6>
+                                {{ $date[$i] }}
+                            </h6>
                             @php $k = 0; @endphp
                             @for ($j = Carbon\Carbon::parse($data->open_time); $j <= Carbon\Carbon::parse($data->close_time); $j->addHour())
-                                <button class="btn btn-sm btn-success mb-2 rounded @if (in_array($j->format('H:i:s'), $jadwal[$i])) disabled @endif"
-                                    onclick="showForm('{{ $j->format('H:i:s') }}','{{ $week[$i] }}','{{ $date[$i] }}')">
-                                    {{ $j->format('H:i') }}
-                                </button>
-                            @php $k++; @endphp
-                            @endfor    
-                    </div>
+                                <div class="d-grid">
+                                    <button
+                                        class="btn btn-sm btn-success mb-2 rounded @if (in_array($j->format('H:i:s'), $jadwal[$i])) disabled @endif"
+                                        onclick="showForm('{{ $j->format('H:i:s') }}','{{ $week[$i] }}','{{ $date[$i] }}')">
+                                        {{ $j->format('H:i') }}
+                                    </button>
+                                </div>
+                                @php $k++; @endphp
+                            @endfor
+                        </div>
                     @endfor
-                </div>    
+                </div>
             </div>
             <div class="col-lg-12 mt-4 d-flex justify-content-center">
                 <h6 class="mt-2">

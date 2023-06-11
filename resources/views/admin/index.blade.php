@@ -148,7 +148,7 @@
     </div>
     <!-- end bootstrap model -->
 
-    <!-- boostrap price modal -->
+    {{-- <!-- boostrap price modal -->
     <div class="modal fade" id="facilityModal" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -185,7 +185,7 @@
             </div>
         </div>
     </div>
-    <!-- end bootstrap model -->
+    <!-- end bootstrap model --> --}}
 
     <!-- boostrap price modal -->
     <div class="modal fade" id="facilityModal" aria-hidden="true">
@@ -198,7 +198,8 @@
                                 <div class="fw-bold">Edit Fasilitas</div>
                             </div>
                             <div class="col-2 me-4">
-                                <div class="btn btn-secondary text-white" onclick="addInput()">Tambah</div>
+                                <img src="{{ asset('assets/images/plusIcon.png') }}" onclick="addInput()" alt="Add"
+                                    width="30" class="mx-2 hover_tunjuk">
                             </div>
                         </div>
                         <form action="javascript:void(0)" id="facilityForm" name="facilityForm" class="form-horizontal"

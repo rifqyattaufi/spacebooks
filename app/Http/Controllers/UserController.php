@@ -20,7 +20,7 @@ class UserController extends Controller
             ->get();
 
         $data = [];
-        foreach ($popular as $key => $p) {
+        foreach ($popular as $p) {
             $space = Space::where('id', $p->space_id)->first();
             $count = Review::where('space_id', $p->space_id)->count();
             $image = Gallery::where('space_id', $p->space_id)->first();
@@ -30,8 +30,12 @@ class UserController extends Controller
                 ->orderBy('rating_count', 'desc')
                 ->first();
             $space->count = $count;
-            $space->image = $image->image;
-            $space->rating = $reviews->rating;
+            if ($image) {
+                $space->image = $image->image;
+            }
+            if ($reviews) {
+                $space->rating = $reviews->rating;
+            }
             $data[] = $space;
         }
 
@@ -45,7 +49,24 @@ class UserController extends Controller
 
     function cariTempat()
     {
-        $spaces = Space::all();
+        $spaces = Space::whereNotNull('coworking_price')->inRandomOrder()->paginate(9);
+        foreach ($spaces as $s) {
+            $count = Review::where('space_id', $s->id)->count();
+            $image = Gallery::where('space_id', $s->id)->first();
+            $reviews = Review::select('rating', DB::raw('COUNT(*) as rating_count'))
+                ->where('space_id', $s->id)
+                ->groupBy('rating')
+                ->orderBy('rating_count', 'desc')
+                ->first();
+            $s->count = $count;
+            if ($image) {
+                $s->image = $image->image;
+            }
+            if ($reviews) {
+                $s->rating = $reviews->rating;
+            }
+        }
+
         return view('cariTempat', compact('spaces'));
     }
 }

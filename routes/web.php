@@ -53,7 +53,5 @@ Route::get('/', [UserController::class, 'index'])->name('home');
 
 Route::middleware('auth')->group(function () {
     Route::get('/caritempat', [UserController::class, 'cariTempat'])->name('caritempat');
-    Route::get('/detailtempat', function () {
-        return view('detailTempat');
-    })->name('detailtempat');
+    Route::get('detailtempat/{id}', [UserController::class, 'detailTempat'])->name('detailtempat');
 });
