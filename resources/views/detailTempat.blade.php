@@ -198,9 +198,12 @@
                                 <h1 class="text-left fw-bold">Rating Anda</h1>
                             </div>
                         </div>
-                        <form action="">
+                        <form action="javascript:void(0)" id="ratingForm" name="ratingForm" class="form-horizontal"
+                            method="POST" enctype="multipart/form-data">
+                            <input type="hidden" name="space_id" id="space_id" value="{{ $space->id }}">
                             <div class="col-3 mb-2">
-                                <select class="form-select" aria-label="Default select example" name="">
+                                <select class="form-select" aria-label="Default select example" name="rating"
+                                    id="rating">
                                     <option value="5">5</option>
                                     <option value="4">4</option>
                                     <option value="3">3</option>
@@ -208,11 +211,9 @@
                                     <option value="1">1</option>
                                 </select>
                             </div>
-                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="comment" id="comment"></textarea>
                             <div class="mt-2">
-                                <a href="https://wa.me/{{ $space->phone }}"
-                                    class="btn btn-secondary text-white px-5">Hubungi
-                                    Admin</a>
+                                <button type="submit" class="btn btn-secondary text-white px-5">Kirim</button>
                             </div>
                         </form>
                     </div>
@@ -224,12 +225,54 @@
 
 @section('script')
     <script>
+        $(document).ready(
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            })
+        )
+
         function reserveModal() {
             $('#reserveModal').modal('show');
         }
 
         function ratingModal() {
-            $('#ratingModal').modal('show');
+            //check if this user have rating
+            $.ajax({
+                type: 'GET',
+                url: "{{ route('review.check', $space->id) }}",
+                success: function(data) {
+                    if (data == 1) {
+                        alert('Anda sudah memberikan rating');
+                    } else {
+                        $('#ratingModal').modal('show');
+                    }
+                },
+                error: function(data) {
+                    console.log(data['responseText']);
+                }
+            });
         }
+
+        $('#ratingForm').submit(function(e) {
+            e.preventDefault();
+            var formData = new FormData(this);
+            $.ajax({
+                type: 'POST',
+                url: "{{ route('review.store') }}",
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(data) {
+                    $('#ratingModal').modal('hide');
+                    location.reload();
+                },
+                error: function(data) {
+                    console.log(data['responseText']);
+                }
+            });
+        });
     </script>
 @endsection

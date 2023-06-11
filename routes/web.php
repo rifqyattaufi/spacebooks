@@ -55,4 +55,6 @@ Route::get('/', [UserController::class, 'index'])->name('home');
 Route::middleware('auth')->group(function () {
     Route::get('/caritempat', [UserController::class, 'cariTempat'])->name('caritempat');
     Route::get('detailtempat/{id}/{type?}', [UserController::class, 'detailTempat'])->name('detailtempat');
+    Route::post('rating/store', [UserController::class, 'storeRating'])->name('review.store');
+    Route::get('review/{id}', [UserController::class, 'checkRating'])->name('review.check');
 });

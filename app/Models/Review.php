@@ -13,6 +13,6 @@ class Review extends Model
         'rating',
         'comment',
         'user_id',
-        'spaces_id',
+        'space_id',
     ];
 }

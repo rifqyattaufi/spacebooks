@@ -113,6 +113,28 @@ class UserController extends Controller
             $jadwal[$key] = Reservation::where('space_id', $space->id)->where('reserve_date', $d)->pluck('reserve_time')->toArray();
         }
 
-        return view('detailTempat', compact('space', 'images', 'reviews', 'type', 'start', 'end', 'week', 'date','jadwal', 'facilitys'));
+        return view('detailTempat', compact('space', 'images', 'reviews', 'type', 'start', 'end', 'week', 'date', 'jadwal', 'facilitys'));
+    }
+
+    function storeRating(Request $request)
+    {
+        Review::create([
+            'user_id' => auth()->user()->id,
+            'space_id' => $request->space_id,
+            'rating' => $request->rating,
+            'comment' => $request->comment,
+        ]);
+
+        return response()->json(['success' => 'Review added successfully']);
+    }
+
+    function checkRating($id)
+    {
+        $review = Review::where('user_id', auth()->user()->id)->where('space_id', $id)->first();
+
+        if ($review) {
+            return response()->json([1]);
+        }
+        return response()->json([0]);
     }
 }
