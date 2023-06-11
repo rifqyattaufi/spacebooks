@@ -71,16 +71,12 @@
                         @else
                             <li class="nav-item dropdown">
                                 <div class="d-flex flex-row align-items-center justify-content-center">
-                                    <img src="{{ asset('assets/images/men.png') }}" alt="Profile Picture"
-                                        class="rounded-circle" width="60" height="60">
+                                    <h5 class="text-dark text-capitalize">Halo, {{ Auth::user()->name }}</h5>
                                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     </a>
 
                                     <ul class="dropdown-menu dropdown-menu-end p-0 m-0" aria-labelledby="navbarDropdown">
-                                        <li>
-                                            <div class="dropdown-item disabled text-dark">{{ Auth::user()->name }}</div>
-                                        </li>
                                         <li>
                                             <div class="dropdown-item disabled text-dark">{{ Auth::user()->email }}</div>
                                         </li>
@@ -171,10 +167,17 @@
             <div class="modal-content">
                 <div class="modal-body">
                     <div class="container">
-                        +62 822-1233-5418
-                        Admin SpaceBook
-                        Lakukan kontrak dengan admin untuk mendapatkan akun Coworking mu!
-                        <a href="https://wa.me/6282212335418" class="btn btn-secondary">Hubungi Admin</a>
+                        <div class="row d-flex justify-content-center text-center">
+                            <div class="col mb-4">
+                                <img src="{{ asset('assets/images/logoWA.png') }}" alt="WhatsApp Icon" class="img-fluid" width="40%">
+                            </div>
+                                <h5 class="mb-2">+62 822-1233-5418</h5>
+                                <h5 class="mb-2">Admin SpaceBook</h5>
+                                <h5 class="mb-3">Lakukan kontrak dengan admin untuk mendapatkan akun Coworking mu!</h5>
+                            <div>
+                                <a href="https://wa.me/6282212335418" class="btn btn-secondary text-white px-5">Hubungi Admin</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
