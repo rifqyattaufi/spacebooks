@@ -31,7 +31,7 @@
                                     <input class="form-control" type="file" id="image" name="image">
                                 </div>
                             </div>
-                            <div class="col mt-2">
+                            <div class="col mt-2 d-flex justify-content-center">
                                 <button type="submit" class="btn btn-secondary text-white" id="btn-save">Upload
                                 </button>
                             </div>
