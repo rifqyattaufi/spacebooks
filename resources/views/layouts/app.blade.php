@@ -17,6 +17,7 @@
         rel="stylesheet">
 
     <!-- Scripts -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 
@@ -49,7 +50,7 @@
                                 href="{{ route('caritempat') }}">Cari Tempat</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" onclick="adminModal()">Tambah Tempat</a>
+                            <a class="nav-link" onclick="adminModal()" href="#">Tambah Tempat</a>
                         </li>
                     </ul>
                     <!-- Right Side Of Navbar -->
@@ -162,6 +163,29 @@
             </footer>
         </main>
     </div>
+
+
+    {{-- modal --}}
+    <div class="modal fade" id="adminModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="container">
+                        +62 822-1233-5418
+                        Admin SpaceBook
+                        Lakukan kontrak dengan admin untuk mendapatkan akun Coworking mu!
+                        <a href="https://wa.me/6282212335418" class="btn btn-secondary">Hubungi Admin</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
+
+<script>
+    function adminModal() {
+        $('#adminModal').modal('show');
+    }
+</script>
 
 </html>
