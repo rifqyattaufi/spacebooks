@@ -74,7 +74,7 @@
                                 </div>
                             </div>
 
-                            <div class="col mt-2">
+                            <div class="col mt-2 d-flex justify-content-center">
                                 <button type="submit" class="btn btn-secondary text-white" id="btn-save">Buat
                                     Reservasi</button>
                             </div>

@@ -85,9 +85,11 @@
             <div class="modal-content">
                 <div class="modal-body">
                     <div class="container">
-                        Selamat Data Anda telah Disimpan
+                        <div class="row d-flex justify-content-center text-center">
+                            <h5>Selamat Data Anda telah Disimpan</h5>
+                            <button class="btn btn-secondary text-light mt-3" onclick="hideSuccess()">Selesai</button>
+                        </div>
                     </div>
-                    <button class="btn btn-secondary text-light" onclick="hideSuccess()">Selesai</button>
                 </div>
             </div>
         </div>

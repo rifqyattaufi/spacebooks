@@ -152,7 +152,7 @@
                                         placeholder="Rp. 100.000">
                                 </div>
                             </div>
-                            <div class="col mt-2">
+                            <div class="col mt-2 d-flex justify-content-center">
                                 <button type="submit" class="btn btn-secondary text-white" id="btn-save">Save changes
                                 </button>
                             </div>
@@ -170,40 +170,44 @@
                 <div class="modal-body p-4">
                     <div class="container">
                         <div class="row">
-                            <div class="col">
+                            <div class="col-10">
                                 <div class="fw-bold">Edit Fasilitas</div>
                             </div>
-                            <div class="col-2 me-4">
+                            <div class="col-2">
                                 <img src="{{ asset('assets/images/plusIcon.png') }}" onclick="addInput()" alt="Add"
                                     width="30" class="mx-2 hover_tunjuk">
                             </div>
                         </div>
-                        <form action="javascript:void(0)" id="facilityForm" name="facilityForm" class="form-horizontal"
-                            method="POST" enctype="multipart/form-data">
-                            <input type="hidden" name="space_id" id="space_id" value="{{ $data->id }}">
-                            <div class="form-group mt-2" id="facilityInput">
-                                @foreach ($facility as $f)
-                                    <div class="col-sm-12 mt-2">
-                                        <input type="hidden" name="id[]" id="id"
-                                            value="{{ $f->id }}">
-                                        <input type="text" class="form-control" id="facility" name="facility[]"
-                                            placeholder="Masukkan Fasilitas" value="{{ $f->name }}">
-                                    </div>
-                                @endforeach
-                                @if (count($facility) == 0)
-                                    <div class="col-sm-12 mt-2">
-                                        <input type="hidden" name="id[]" id="id" value="">
-                                        <input type="text" class="form-control" id="facility" name="facility[]"
-                                            placeholder="Masukkan Fasilitas">
-                                    </div>
-                                @endif
+                        <div class="row">
+                            <div class="col-12">
+                            <form action="javascript:void(0)" id="facilityForm" name="facilityForm" class="form-horizontal"
+                                method="POST" enctype="multipart/form-data">
+                                <input type="hidden" name="space_id" id="space_id" value="{{ $data->id }}">
+                                <div class="form-group mt-2" id="facilityInput">
+                                    @foreach ($facility as $f)
+                                        <div class="col-sm-12 mt-2">
+                                            <input type="hidden" name="id[]" id="id"
+                                                value="{{ $f->id }}">
+                                            <input type="text" class="form-control" id="facility" name="facility[]"
+                                                placeholder="Masukkan Fasilitas" value="{{ $f->name }}">
+                                        </div>
+                                    @endforeach
+                                    @if (count($facility) == 0)
+                                        <div class="col-sm-12 mt-2">
+                                            <input type="hidden" name="id[]" id="id" value="">
+                                            <input type="text" class="form-control" id="facility" name="facility[]"
+                                                placeholder="Masukkan Fasilitas">
+                                        </div>
+                                    @endif
+                                </div>
+                                <div class="col mt-2 d-flex justify-content-center">
+                                    <button type="submit" class="btn btn-secondary text-white" id="btn-save">Save
+                                        changes
+                                    </button>
+                                </div>
+                            </form>
                             </div>
-                            <div class="col mt-2">
-                                <button type="submit" class="btn btn-secondary text-white" id="btn-save">Save
-                                    changes
-                                </button>
-                            </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -233,7 +237,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col mt-2">
+                            <div class="col mt-2 d-flex justify-content-center">
                                 <button type="submit" class="btn btn-secondary text-white" id="btn-save">Save
                                     changes
                                 </button>
