@@ -27,6 +27,7 @@
                                 alt="Card Image">
                             <div class="card-body">
                                 <h5 class="card-title">Coworking Space</h5>
+                                <a href="{{ route('caritempat') }}" class="stretched-link"></a>
                             </div>
                         </div>
                     </div>
@@ -35,6 +36,7 @@
                             <img src="{{ asset('assets/images/meetingroom.png') }}" class="card-img-top" alt="Card Image">
                             <div class="card-body">
                                 <h5 class="card-title">Meeting Room</h5>
+                                <a href="{{ route('caritempat') }}" class="stretched-link"></a>
                             </div>
                         </div>
                     </div>
@@ -46,90 +48,59 @@
             <div class="container">
                 <h3 class="text-left mb-5 fw-bold">Terpopuler</h3>
                 <div class="row">
+                    @foreach ($data as $d)
+                        <div class="col-lg-4">
+                            <div class="card mb-4 shadow p-3">
+                                <img src="{{ url('/images/', $d->image) }}" class="card-img-top" alt="Card Image"
+                                    style="object-fit: cover; aspect-ratio: 16/9">
+                                <div class="card-body">
 
-                    <div class="col-lg-4">
-                        <div class="card mb-4 shadow p-3">
+                                    <h5 class="card-title">{{ $d->name }}</h5>
 
-                            <img src="{{ asset('assets/images/image1.png') }}" class="card-img-top" alt="Card Image">
-                            <div class="card-body">
+                                    <p class="card-text">
+                                        @if ($d->coworking_price != null)
+                                            Coworking Space
+                                        @endif
+                                        @if ($d->coworking_price != null && $d->meeting_price != null)
+                                            &
+                                        @endif
+                                        @if ($d->meeting_price != null)
+                                            Meeting Room
+                                        @endif
+                                    </p>
 
-                                <h5 class="card-title">EZO Working Space</h5>
+                                    <p class="card-text">
+                                        @if ($d->coworking_price > $d->meeting_price && $d->meeting_price != null)
+                                            Rp.{{ number_format($d->meeting_price) }} -
+                                            {{ number_format($d->coworking_price) }}/h
+                                        @elseif ($d->coworking_price < $d->meeting_price && $d->coworking_price != null)
+                                            Rp.{{ number_format($d->coworking_price) }} -
+                                            {{ number_format($d->meeting_price) }}/h
+                                        @elseif ($d->coworking_price != null)
+                                            Rp.{{ number_format($d->coworking_price) }}/h
+                                        @elseif ($d->meeting_price != null)
+                                            Rp.{{ number_format($d->meeting_price) }}/h
+                                        @endif
+                                    </p>
 
-                                <p class="card-text">Coworking Space</p>
+                                    <div class="rating">
+                                        @for ($i = 0; $i < $d->rating; $i++)
+                                            <span class="text-warning">&#9733;</span>
+                                        @endfor
+                                        @for ($i = $d->rating; $i < 5; $i++)
+                                            <span class="text-muted">&#9733;</span>
+                                        @endfor
+                                        <span class="text-muted rating-text mr-2">{{ $d->count }} reviews</span>
+                                    </div>
 
-                                <p class="card-text">Rp.50rb - 150rb/h</p>
-
-                                <div class="rating">
-                                    <span class="text-warning">&#9733;</span>
-                                    <span class="text-warning">&#9733;</span>
-                                    <span class="text-warning">&#9733;</span>
-                                    <span class="text-muted">&#9733;</span>
-                                    <span class="text-muted">&#9733;</span>
-                                    <span class="text-muted rating-text mr-2">322 reviews</span>
-                                </div>
-
-                                <div class="d-grid gap-2">
-                                    <a href="{{ '/detailtempat' }}" class="btn btn-secondary text-white mt-3">Detail</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4">
-                        <div class="card mb-4 shadow p-3">
-
-                            <img src="{{ asset('assets/images/image2.png') }}" class="card-img-top" alt="Card Image">
-                            <div class="card-body">
-
-                                <h5 class="card-title">Ngalup Co</h5>
-
-                                <p class="card-text">Coworking Space</p>
-
-                                <p class="card-text">Rp.50rb - 150rb/h</p>
-
-                                <div class="rating">
-                                    <span class="text-warning">&#9733;</span>
-                                    <span class="text-warning">&#9733;</span>
-                                    <span class="text-warning">&#9733;</span>
-                                    <span class="text-warning">&#9733;</span>
-                                    <span class="text-muted">&#9733;</span>
-                                    <span class="text-muted rating-text mr-2">322 reviews</span>
-                                </div>
-
-                                <div class="d-grid gap-2">
-                                    <a href="#" class="btn btn-secondary text-white mt-3">Detail</a>
+                                    <div class="d-grid gap-2">
+                                        <a href="{{ '/detailtempat' }}"
+                                            class="btn btn-secondary text-white mt-3">Detail</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="col-lg-4">
-                        <div class="card mb-4 shadow p-3">
-
-                            <img src="{{ asset('assets/images/image3.png') }}" class="card-img-top" alt="Card Image">
-                            <div class="card-body">
-
-                                <h5 class="card-title">Ruang Milenial</h5>
-
-                                <p class="card-text">Coworking Space</p>
-
-                                <p class="card-text">Rp.50rb - 150rb/h</p>
-
-                                <div class="rating">
-                                    <span class="text-warning">&#9733;</span>
-                                    <span class="text-warning">&#9733;</span>
-                                    <span class="text-warning">&#9733;</span>
-                                    <span class="text-warning">&#9733;</span>
-                                    <span class="text-warning">&#9733;</span>
-                                    <span class="text-muted rating-text mr-2">322 reviews</span>
-                                </div>
-
-                                <div class="d-grid gap-2">
-                                    <a href="#" class="btn btn-secondary text-white mt-3">Detail</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </section>
@@ -205,7 +176,7 @@
                                     <div class="col-lg-6">
                                         <h2 class="fw-bold lh-base">Ingin menambahkan coworking spacemu?</h2>
                                         <p class="fw-light my-2">Daftarkan coworking spacemu di sini</p>
-                                        <a href="{{ route('register') }}"
+                                        <a href="#" onclick="adminModal()"
                                             class="btn btn-secondary text-white ps-5 pe-5 my-3">Hubungi Kami</a>
                                     </div>
                                     <div class="col-lg-6 text-center">

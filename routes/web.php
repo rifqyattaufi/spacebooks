@@ -49,8 +49,7 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
     Route::post('/jadwal/get', [AdminController::class, 'getJadwal'])->name('admin.jadwal.get');
 });
 
-Route::get('/', [UserController::class, 'index'])->name('index');
-Route::get('/home', [UserController::class, 'home'])->name('home');
+Route::get('/', [UserController::class, 'index'])->name('home');
 
 Route::middleware('auth')->group(function () {
     Route::get('/caritempat', [UserController::class, 'cariTempat'])->name('caritempat');

@@ -35,12 +35,17 @@ class UserController extends Controller
             $data[] = $space;
         }
 
+        if (auth()->user()) {
+            return view('home', compact('data'));
+        }
+
         $reviews = Review::where('rating', '>=', 4)->inRandomOrder()->limit(3)->join('users', 'users.id', '=', 'reviews.user_id')->get();
         return view('welcome', compact('data', 'reviews'));
     }
 
-    function home()
+    function cariTempat()
     {
-        return view('home');
+        $spaces = Space::all();
+        return view('cariTempat', compact('spaces'));
     }
 }

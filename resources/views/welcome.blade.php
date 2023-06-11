@@ -24,7 +24,8 @@
                 @foreach ($data as $d)
                     <div class="col-lg-4">
                         <div class="card mb-4 shadow p-3">
-                            <img src="{{ url('/images/', $d->image) }}" class="card-img-top" alt="Card Image" style="object-fit: cover; aspect-ratio: 16/9">
+                            <img src="{{ url('/images/', $d->image) }}" class="card-img-top" alt="Card Image"
+                                style="object-fit: cover; aspect-ratio: 16/9">
                             <div class="card-body">
 
                                 <h5 class="card-title">{{ $d->name }}</h5>
@@ -145,7 +146,7 @@
                                 <div class="col-lg-6">
                                     <h2 class="fw-bold lh-base">Ingin menambahkan coworking spacemu?</h2>
                                     <p class="fw-light my-2">Daftarkan coworking spacemu di sini</p>
-                                    <a href="{{ route('register') }}"
+                                    <a href="#" onclick="adminModal()"
                                         class="btn btn-secondary text-white ps-5 pe-5 my-3">Hubungi Kami</a>
                                 </div>
                                 <div class="col-lg-6 text-center">
@@ -175,7 +176,6 @@
                                     <div class="col-8">
                                         <h5 class="card-title">{{ $r->name }}</h5>
                                         <div class="rating-stars">
-                                            {{-- <span class="text-secondary">&#9733;&#9733;&#9733;&#9733;&#9734;</span> --}}
                                             @for ($i = 0; $i < $r->rating; $i++)
                                                 <span class="text-secondary">&#9733;</span>
                                             @endfor
@@ -190,46 +190,6 @@
                         </div>
                     </div>
                 @endforeach
-                {{-- <div class="col-md-4 mb-4">
-                    <div class="card bg-white text-primary">
-                        <div class="card-body">
-                            <div class="row align-items-center">
-                                <div class="col-4">
-                                    <img src="{{ asset('assets/images/men.png') }}" alt="Profile Picture"
-                                        class="rounded-circle mb-3" width="80" height="80">
-                                </div>
-                                <div class="col-8">
-                                    <h5 class="card-title">John Doe</h5>
-                                    <div class="rating-stars">
-                                        <span class="text-secondary">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <p class="card-text mt-3">“Beryukur banget nemu website ini, jadi gampang mau booking tempat
-                                sesuai kebutuhan”</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="card bg-white text-primary">
-                        <div class="card-body">
-                            <div class="row align-items-center">
-                                <div class="col-4">
-                                    <img src="{{ asset('assets/images/men.png') }}" alt="Profile Picture"
-                                        class="rounded-circle mb-3" width="80" height="80">
-                                </div>
-                                <div class="col-8">
-                                    <h5 class="card-title">John Doe</h5>
-                                    <div class="rating-stars">
-                                        <span class="text-secondary">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <p class="card-text mt-3">“Beryukur banget nemu website ini, jadi gampang mau booking tempat
-                                sesuai kebutuhan”</p>
-                        </div>
-                    </div>
-                </div> --}}
             </div>
         </div>
     </section>

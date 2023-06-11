@@ -79,16 +79,16 @@
 
                                     <ul class="dropdown-menu dropdown-menu-end p-0 m-0" aria-labelledby="navbarDropdown">
                                         <li>
-                                            <div class="dropdown-item">{{ Auth::user()->name }}</div>
+                                            <div class="dropdown-item disabled text-dark">{{ Auth::user()->name }}</div>
                                         </li>
                                         <li>
-                                            <div class="dropdown-item">{{ Auth::user()->email }}</div>
+                                            <div class="dropdown-item disabled text-dark">{{ Auth::user()->email }}</div>
                                         </li>
                                         <li>
                                             <hr class="dropdown-divider">
                                         </li>
                                         <li><a class="dropdown-item" href="#">Bookingan Saya</a></li>
-                                        <li><a class="dropdown-item" href="#">Logout</a></li>
+                                        <li><a class="dropdown-item" href="{{route('logout')}}">Logout</a></li>
                                     </ul>
                                 </div>
                             </li>
