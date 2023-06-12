@@ -83,7 +83,7 @@
                 </div>
                 <div class="col-lg-3">
                     <h3 class="fw-bold">Jam Buka</h3>
-                    <h5>Monday - Friday</h5>
+                    <h5>{{ $space->open_day }} - {{ $space->close_day }}</h5>
                     <div class="d-flex align-items-center">
                         <img src="{{ asset('assets/images/clockIcon.png') }}" alt="Clock" width="20" class="me-2">
                         <span>{{ date('H:i', strtotime($space->open_time)) }} -
@@ -99,7 +99,7 @@
                 <div class="col-lg-3">
                     <h3 class="fw-bold">Kapasitas</h3>
                     <p class="m-0">Coworking Space</p>
-                    <p class="m-0">25 orang</p>
+                    <p class="m-0">{{ $space->capacity }} orang</p>
                 </div>
             </div>
         </div>
@@ -112,7 +112,7 @@
                     <h3 class="fw-bold">Lokasi</h3>
                     <div class="d-flex align-items-center">
                         <img src="{{ asset('assets/images/pinIcon.png') }}" alt="Location" width="20" class="me-2">
-                        <h4 class="m-0">Jl. Dewandaru No.68, Jatimulyo, Kec. Lowokwaru, Kota Malang, Jawa Timur 65141
+                        <h4 class="m-0">{{ $space->address }}
                         </h4>
                     </div>
                 </div>
