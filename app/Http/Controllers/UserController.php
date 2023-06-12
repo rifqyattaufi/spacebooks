@@ -110,7 +110,12 @@ class UserController extends Controller
         }
         $jadwal = [];
         foreach ($date as $key => $d) {
-            $jadwal[$key] = Reservation::where('space_id', $space->id)->where('reserve_date', $d)->pluck('reserve_time')->toArray();
+            $jadwal[$key] = Reservation::where('space_id', $space->id)->where('reserve_date', $d)->when($type === 'meeting', function ($query) {
+            return $query->where('type', 1);
+        })
+            ->unless($type === 'meeting', function ($query) {
+                return $query->where('type', 0);
+            })->pluck('reserve_time')->toArray();
         }
 
         return view('detailTempat', compact('space', 'images', 'reviews', 'type', 'start', 'end', 'week', 'date', 'jadwal', 'facilitys'));

@@ -31,8 +31,11 @@
                             @for ($j = Carbon\Carbon::parse($data->open_time); $j <= Carbon\Carbon::parse($data->close_time); $j->addHour())
                                 <div class="d-grid">
                                     <button
-                                        class="btn btn-sm mb-2 rounded @if (in_array($j->format('H:i:s'), $jadwal[$i])) btn-danger disabled @else btn-success @endif"
-                                        onclick="showForm('{{ $j->format('H:i:s') }}','{{ $week[$i] }}','{{ $date[$i] }}')">
+                                        class="btn btn-sm mb-2 rounded
+                                        @if (in_array($j->format('H:i:s'), $jadwal[$i])) btn-danger
+                                        @else btn-success @endif"
+                                        @if (in_array($j->format('H:i:s'), $jadwal[$i])) onclick="deleteForm('{{ $j->format('H:i:s') }}','{{ $week[$i] }}','{{ $date[$i] }}')"
+                                        @else onclick="showForm('{{ $j->format('H:i:s') }}','{{ $week[$i] }}','{{ $date[$i] }}')" @endif>
                                         {{ $j->format('H:i') }}
                                     </button>
                                 </div>
@@ -84,6 +87,29 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="deleteModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="fw-bold">Yakin Delete Reservasi?</div>
+                        <form action="javascript:void(0)" id="delete" name="delete" class="form-horizontal"
+                            method="POST" enctype="multipart/form-data">
+                            <input type="hidden" name="space_id" id="space_id_delete" value="{{ $data->id }}">
+                            <input type="hidden" name="reserve_time" id="reserve_time_delete">
+                            <input type="hidden" name="reserve_date" id="reserve_date_delete">
+                            <input type="hidden" name="type" id="type_delete">
+                            <div class="col mt-2 d-flex justify-content-center">
+                                <button type="submit" class="btn btn-secondary text-white" id="btn-save">Delete
+                                    Reservasi</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('script')
@@ -109,6 +135,38 @@
             $('#reserve_date').val(date);
             $('#orderModal').modal('show');
         }
+
+        function deleteForm(time, week, date) {
+            if ('{{ request()->get('type') }}' == 'meeting') {
+                $('#type_delete').val(1);
+            } else {
+                $('#type_delete').val(0);
+            }
+            $('#reserve_time_delete').val(time);
+            $('#reserve_date_delete').val(date);
+            $('#deleteModal').modal('show');
+        }
+
+        $('#delete').submit(function(e) {
+            e.preventDefault();
+            var formData = new FormData(this);
+            $.ajax({
+                type: 'POST',
+                url: "{{ route('admin.jadwal.delete') }}",
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: (data) => {
+                    this.reset();
+                    $('#deleteModal').modal('hide');
+                    $('#successModal').modal('show');
+                },
+                error: function(data) {
+                    $('#validationEmail').html(data['responseText']);
+                }
+            });
+        });
 
         $('#orderForm').submit(function(e) {
             e.preventDefault();

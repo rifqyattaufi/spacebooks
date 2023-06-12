@@ -194,4 +194,15 @@ class AdminController extends Controller
 
         return response()->json('Reservation added successfully');
     }
+
+    function deleteJadwal(Request $request)
+    {
+        Reservation::where('reserve_time', $request->reserve_time)
+            ->where('reserve_date', $request->reserve_date)
+            ->where('space_id', $request->space_id)
+            ->where('type', $request->type)
+            ->delete();
+
+        return response()->json('Reservation deleted successfully');
+    }
 }

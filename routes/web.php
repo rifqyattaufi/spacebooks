@@ -48,6 +48,7 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
     Route::get('/jadwal', [AdminController::class, 'jadwal'])->name('admin.jadwal');
     Route::post('/jadwal/add', [AdminController::class, 'addJadwal'])->name('admin.jadwal.add');
     Route::post('/jadwal/get', [AdminController::class, 'getJadwal'])->name('admin.jadwal.get');
+    Route::post('jadwal/delete', [AdminController::class, 'deleteJadwal'])->name('admin.jadwal.delete');
 });
 
 Route::get('/', [UserController::class, 'index'])->name('home');
