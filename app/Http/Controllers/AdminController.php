@@ -143,6 +143,15 @@ class AdminController extends Controller
         return response()->json(['success' => 'Image added successfully']);
     }
 
+    public function deleteGallery(Request $request)
+    {
+        $image = Gallery::where('id', $request->id)->first();
+        unlink(public_path('images/' . $image->image));
+        Gallery::where('id', $request->id)->delete();
+
+        return response()->json(['success' => 'Image deleted successfully']);
+    }
+
     public function jadwal(Request $request)
     {
         $data = Space::where('admin_id', auth()->user()->id)->first();

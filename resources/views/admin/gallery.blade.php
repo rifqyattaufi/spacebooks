@@ -8,6 +8,12 @@
                 <div class="card">
                     <img src="{{ url('/images/', $i->image) }}" class="card-img-top"
                         style="aspect-ratio:16/9; object-fit:cover;">
+                    <div class="card-body">
+                        <form action="" id="deleteImage">
+                            <input type="hidden" value="{{ $i->id }}" name="id" id="id">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         @endforeach
@@ -21,7 +27,8 @@
                     <div class="container">
                         <div class="fw-bold">Unggah Foto</div>
                         <div class="d-flex justify-content-center">
-                            <img id="preview" src="" alt="your image" class="mt-3" style="max-width: 100%; max-height: 300px; display: none;" />
+                            <img id="preview" src="" alt="your image" class="mt-3"
+                                style="max-width: 100%; max-height: 300px; display: none;" />
                         </div>
                         <form action="javascript:void(0)" id="imageForm" name="imageForm" class="form-horizontal"
                             method="POST" enctype="multipart/form-data">
@@ -92,5 +99,27 @@
         $('#successModal').on('hidden.bs.modal', function() {
             location.reload();
         })
+
+        $('#deleteImage').submit(function(e) {
+            e.preventDefault();
+            let text = "Are you sure want to delete this image?.";
+            if (confirm(text) == true) {
+                var formData = new FormData(this);
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ route('admin.gallery.delete') }}",
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: (data) => {
+                        $('#successModal').modal('show');
+                    },
+                    error: function(data) {
+                        console.log(data['responseText']);
+                    }
+                });
+            }
+        });
     </script>
 @endsection
