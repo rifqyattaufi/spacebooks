@@ -214,4 +214,22 @@ class AdminController extends Controller
 
         return response()->json('Reservation deleted successfully');
     }
+
+    public function updateAddress(Request $request)
+    {
+        $rules = [
+            'address' => 'required',
+        ];
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return response()->json($validator->getMessageBag()->first(), 400);
+        }
+
+        Space::where('id', $request->space_id)->update([
+            'address' => $request->address,
+        ]);
+
+        return Response()->json(['success' => 'Address updated successfully']);
+    }
 }

@@ -48,8 +48,14 @@
                     </div>
 
                     <div class="row mt-4 d-flex justify-content-between">
-                        <div class="col-lg-12 d-flex justify-content-start">
+                        <div class="col-lg-4 d-flex justify-content-start">
                             <h3 class="fw-bold mb-3">Lokasi</h3>
+                        </div>
+                        <div class="col-lg-6 d-flex justify-content-center">
+                            <a onclick="addressModal()" data-toggle="tooltip">
+                                <img src="{{ asset('assets/images/editIcon.png') }}" alt="Edit" width="30"
+                                    class="me-2 hover_tunjuk">
+                            </a>
                         </div>
                         <div class="col-lg-12">
                             <div class="d-flex align-items-center">
@@ -61,8 +67,14 @@
                     </div>
 
                     <div class="row mt-4 d-flex justify-content-between">
-                        <div class="col-lg-12 d-flex justify-content-start">
+                        <div class="col-lg-4 d-flex justify-content-start">
                             <h3 class="fw-bold mb-3">Jam Buka dan Kapasitas</h3>
+                        </div>
+                        <div class="col-lg-6 d-flex justify-content-center">
+                            <a onclick="" data-toggle="tooltip">
+                                <img src="{{ asset('assets/images/editIcon.png') }}" alt="Edit" width="30"
+                                    class="me-2 hover_tunjuk">
+                            </a>
                         </div>
                     </div>
                     <div class="row d-flex align-items-center">
@@ -249,6 +261,39 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="addressModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body p-4">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <div class="fw-bold">Edit Address</div>
+                            </div>
+                        </div>
+                        <form action="javascript:void(0)" id="addressForm" name="addressForm" class="form-horizontal"
+                            method="POST" enctype="multipart/form-data">
+                            <input type="hidden" name="space_id" id="space_id" value="{{ $data->id }}">
+                            <div class="form-group mt-2" id="phoneInput">
+                                <div class="col-sm-12 mt-2">
+                                    <input type="text" class="form-control" id="address" name="address"
+                                        placeholder="Masukkan Contact" value="{{ $data->address }}">
+                                    <div id="validationAddress" class="invalid-feedback" style="display: block">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col mt-2 d-flex justify-content-center">
+                                <button type="submit" class="btn btn-secondary text-white" id="btn-save">Save
+                                    changes
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     @endif
 @endsection
 
@@ -367,6 +412,30 @@
 
         $('#successModal').on('hidden.bs.modal', function() {
             location.reload();
+        });
+
+        function addressModal() {
+            $('#addressModal').modal('show');
+        }
+
+        $('#addressForm').submit(function(e) {
+            e.preventDefault();
+            var formData = new FormData(this);
+            $.ajax({
+                type: 'POST',
+                url: "{{ route('admin.spaces.address.update') }}",
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: (data) => {
+                    $('#addressModal').modal('hide');
+                    $('#successModal').modal('show');
+                },
+                error: function(data) {
+                    $('#validationAddress').html(data['responseText']);
+                }
+            });
         });
     </script>
 @endsection
