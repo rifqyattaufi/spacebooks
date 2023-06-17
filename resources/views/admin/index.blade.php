@@ -71,7 +71,7 @@
                             <h3 class="fw-bold mb-3">Jam Buka dan Kapasitas</h3>
                         </div>
                         <div class="col-lg-6 d-flex justify-content-center">
-                            <a onclick="" data-toggle="tooltip">
+                            <a onclick="openCloseModal()" data-toggle="tooltip">
                                 <img src="{{ asset('assets/images/editIcon.png') }}" alt="Edit" width="30"
                                     class="me-2 hover_tunjuk">
                             </a>
@@ -279,9 +279,96 @@
                                 <div class="col-sm-12 mt-2">
                                     <input type="text" class="form-control" id="address" name="address"
                                         placeholder="Masukkan Contact" value="{{ $data->address }}">
-                                    <div id="validationAddress" class="invalid-feedback" style="display: block">
+                                    <div id="validationAddress" class="invalid-feedback" style="display: block"></div>
+                                </div>
+                            </div>
+                            <div class="col mt-2 d-flex justify-content-center">
+                                <button type="submit" class="btn btn-secondary text-white" id="btn-save">Save
+                                    changes
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="openCloseModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body p-4">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <div class="fw-bold">Edit Open-Close Time</div>
+                            </div>
+                        </div>
+                        <form action="javascript:void(0)" id="openCloseForm" name="openCloseForm"
+                            class="form-horizontal" method="POST" enctype="multipart/form-data">
+                            <input type="hidden" name="space_id" id="space_id" value="{{ $data->id }}">
+                            <div class="form-group mt-2">
+                                <input type="text" class="form-control" id="address" name="address"
+                                    placeholder="Masukkan Contact" value="{{ $data->address }}">
+                                <div class="mb-3">
+                                    <label for="" class="form-label">Open-Close Day</label>
+                                    <div class="row">
+                                        <div class="col">
+                                            <select class="form-select @error('open_day') is-invalid @enderror"
+                                                name="open_day">
+                                                <option value="Senin" @if ($data->open_day == 'Senin') selected @endif>
+                                                    Senin</option>
+                                                <option value="Selasa" @if ($data->open_day == 'Selasa') selected @endif>
+                                                    Selasa</option>
+                                                <option value="Rabu" @if ($data->open_day == 'Rabu') selected @endif>
+                                                    Rabu</option>
+                                                <option value="Kamis" @if ($data->open_day == 'Kamis') selected @endif>
+                                                    Kamis</option>
+                                                <option value="Jumat" @if ($data->open_day == 'Jumat') selected @endif>
+                                                    Jumat</option>
+                                                <option value="Sabtu" @if ($data->open_day == 'Sabtu') selected @endif>
+                                                    Sabtu</option>
+                                                <option value="Minggu" @if ($data->open_day == 'Minggu') selected @endif>
+                                                    Minggu</option>
+                                            </select>
+                                        </div>
+                                        <div class="col">
+                                            <select class="form-select @error('close_day') is-invalid @enderror"
+                                                name="close_day">
+                                                <option value="Senin" @if ($data->close_day == 'Senin') selected @endif>
+                                                    Senin</option>
+                                                <option value="Selasa" @if ($data->close_day == 'Selasa') selected @endif>
+                                                    Selasa</option>
+                                                <option value="Rabu" @if ($data->close_day == 'Rabu') selected @endif>
+                                                    Rabu</option>
+                                                <option value="Kamis" @if ($data->close_day == 'Kamis') selected @endif>
+                                                    Kamis</option>
+                                                <option value="Jumat" @if ($data->close_day == 'Jumat') selected @endif>
+                                                    Jumat</option>
+                                                <option value="Sabtu" @if ($data->close_day == 'Sabtu') selected @endif>
+                                                    Sabtu</option>
+                                                <option value="Minggu" @if ($data->close_day == 'Minggu') selected @endif>
+                                                    Minggu</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
+                                <div class="mb-3">
+                                    <label for="" class="form-label">Open-Close Time</label>
+                                    <div class="row">
+                                        <div class="col">
+                                            <input type="time"
+                                                class="form-control @error('open_time') is-invalid @enderror"
+                                                name="open_time" id="close_time" value="{{ $data->open_time }}">
+                                        </div>
+                                        <div class="col">
+                                            <input type="time"
+                                                class="form-control @error('close_time') is-invalid @enderror"
+                                                name="close_time" id="close_time" value="{{ $data->close_time }}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="validationAddress" class="invalid-feedback" style="display: block"></div>
                             </div>
                             <div class="col mt-2 d-flex justify-content-center">
                                 <button type="submit" class="btn btn-secondary text-white" id="btn-save">Save
@@ -430,6 +517,30 @@
                 processData: false,
                 success: (data) => {
                     $('#addressModal').modal('hide');
+                    $('#successModal').modal('show');
+                },
+                error: function(data) {
+                    $('#validationAddress').html(data['responseText']);
+                }
+            });
+        });
+
+        function openCloseModal() {
+            $('#openCloseModal').modal('show');
+        }
+
+        $('#openCloseForm').submit(function(e) {
+            e.preventDefault();
+            var formData = new FormData(this);
+            $.ajax({
+                type: 'POST',
+                url: "{{ route('admin.spaces.openClose.update') }}",
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: (data) => {
+                    $('#openCloseModal').modal('hide');
                     $('#successModal').modal('show');
                 },
                 error: function(data) {

@@ -42,6 +42,7 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
     Route::post('/spaces/facility/update', [AdminController::class, 'updateFacility'])->name('admin.spaces.facility.update');
     Route::post('/spaces/phone/update', [AdminController::class, 'updatePhone'])->name('admin.spaces.phone.update');
     Route::post('/spaces/address/update', [AdminController::class, 'updateAddress'])->name('admin.spaces.address.update');
+    Route::post('/spaces/openClose/update', [AdminController::class, 'updateOpenClose'])->name('admin.spaces.openClose.update');
 
     Route::get('/gallery', [AdminController::class, 'gallery'])->name('admin.gallery');
     Route::post('/gallery/add', [AdminController::class, 'addGallery'])->name('admin.gallery.add');

@@ -232,4 +232,28 @@ class AdminController extends Controller
 
         return Response()->json(['success' => 'Address updated successfully']);
     }
+
+    public function updateOpenClose(Request $request)
+    {
+        $rules = [
+            'open_day' => 'required',
+            'open_time' => 'required',
+            'close_day' => 'required',
+            'close_time' => 'required',
+        ];
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return response()->json($validator->getMessageBag()->first(), 400);
+        }
+
+        Space::where('id', $request->space_id)->update([
+            'open_day' => $request->open_day,
+            'open_time' => $request->open_time,
+            'close_day' => $request->close_day,
+            'close_time' => $request->close_time,
+        ]);
+
+        return Response()->json(['success' => 'Open and close time updated successfully']);
+    }
 }
