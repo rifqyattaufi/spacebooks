@@ -256,4 +256,4 @@ class AdminController extends Controller
 
         return Response()->json(['success' => 'Open and close time updated successfully']);
     }
-}
+}   
